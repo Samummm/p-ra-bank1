@@ -1,6 +1,5 @@
-package controller;
+package com.bank.profile.controller;
 
-import com.bank.profile.controller.ActualRegistrationController;
 import com.bank.profile.dto.ActualRegistrationDto;
 import com.bank.profile.service.ActualRegistrationService;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.*;
 
-public class TestActualRegistrationController {
+public class ActualRegistrationControllerTest {
 
     private ActualRegistrationDto mockDto;
     private ActualRegistrationService serviceMock;

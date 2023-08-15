@@ -1,17 +1,16 @@
-package controller;
+package com.bank.profile.controller;
 
 
-import com.bank.profile.controller.ProfileController;
-import com.bank.profile.dto.ActualRegistrationDto;
 import com.bank.profile.dto.PassportDto;
-import com.bank.profile.dto.ProfileDto;
-import com.bank.profile.service.ProfileService;
+import com.bank.profile.dto.RegistrationDto;
+import com.bank.profile.service.PassportService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
@@ -19,35 +18,40 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.*;
 
-public class TestProfileController {
+public class PassportControllerTest {
 
-    private ProfileDto mockDto;
-    private ProfileService serviceMock;
-    private ProfileController controller;
+    private PassportDto mockDto;
+    private PassportService serviceMock;
+    private PassportController controller;
 
     @BeforeEach
     public void setUp() {
-        PassportDto mockPassportDto = Mockito.mock(PassportDto.class);
-        ActualRegistrationDto mockActualRegistrationDto = Mockito.mock(ActualRegistrationDto.class);
-        mockDto = new ProfileDto();
+        RegistrationDto mockRegistrationDto = Mockito.mock(RegistrationDto.class);
+        mockDto = new PassportDto();
         mockDto.setId(1L);
-        mockDto.setPhoneNumber(1234567890L);
-        mockDto.setEmail("test@example.com");
-        mockDto.setNameOnCard("John Wick");
-        mockDto.setInn(123456789012L);
-        mockDto.setSnils(98765432109L);
-        mockDto.setPassport(mockPassportDto);
-        mockDto.setActualRegistration(mockActualRegistrationDto);
+        mockDto.setSeries(1234);
+        mockDto.setNumber(567890L);
+        mockDto.setLastName("Last");
+        mockDto.setFirstName("First");
+        mockDto.setMiddleName("Middle");
+        mockDto.setGender("Male");
+        mockDto.setBirthDate(LocalDate.of(1990, 1, 15));
+        mockDto.setBirthPlace("Birth Place");
+        mockDto.setIssuedBy("Issuer");
+        mockDto.setDateOfIssue(LocalDate.of(2020, 5, 10));
+        mockDto.setDivisionCode(123456);
+        mockDto.setExpirationDate(LocalDate.of(2030, 12, 31));
+        mockDto.setRegistration(mockRegistrationDto);
 
-        serviceMock = Mockito.mock(ProfileService.class);
-        controller = new ProfileController(serviceMock);
+        serviceMock = Mockito.mock(PassportService.class);
+        controller = new PassportController(serviceMock);
     }
 
     @Test
     public void testRead() {
         Mockito.when(serviceMock.findById(anyLong())).thenReturn(mockDto);
 
-        ResponseEntity<ProfileDto> response = controller.read(1L);
+        ResponseEntity<PassportDto> response = controller.read(1L);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(mockDto, response.getBody());
@@ -55,9 +59,9 @@ public class TestProfileController {
 
     @Test
     public void testCreate() {
-        Mockito.when(serviceMock.save(any(ProfileDto.class))).thenReturn(mockDto);
+        Mockito.when(serviceMock.save(any(PassportDto.class))).thenReturn(mockDto);
 
-        ResponseEntity<ProfileDto> response = controller.create(mockDto);
+        ResponseEntity<PassportDto> response = controller.create(mockDto);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(mockDto, response.getBody());
@@ -65,9 +69,9 @@ public class TestProfileController {
 
     @Test
     public void testUpdate() {
-        Mockito.when(serviceMock.update(anyLong(), any(ProfileDto.class))).thenReturn(mockDto);
+        Mockito.when(serviceMock.update(anyLong(), any(PassportDto.class))).thenReturn(mockDto);
 
-        ResponseEntity<ProfileDto> response = controller.update(1L, mockDto);
+        ResponseEntity<PassportDto> response = controller.update(1L, mockDto);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(mockDto, response.getBody());
@@ -75,10 +79,10 @@ public class TestProfileController {
 
     @Test
     public void testReadAllById() {
-        List<ProfileDto> mockDtoList = Collections.singletonList(mockDto);
+        List<PassportDto> mockDtoList = Collections.singletonList(mockDto);
         Mockito.when(serviceMock.findAllById(anyList())).thenReturn(mockDtoList);
 
-        ResponseEntity<List<ProfileDto>> response = controller.readAllById(Collections.singletonList(1L));
+        ResponseEntity<List<PassportDto>> response = controller.readAllById(Collections.singletonList(1L));
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(mockDtoList, response.getBody());

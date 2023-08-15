@@ -1,14 +1,13 @@
-package service;
+package com.bank.profile.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import com.bank.profile.dto.RegistrationDto;
-import com.bank.profile.entity.RegistrationEntity;
-import com.bank.profile.mapper.RegistrationMapper;
-import com.bank.profile.repository.RegistrationRepository;
-import com.bank.profile.service.RegistrationService;
-import com.bank.profile.service.impl.RegistrationServiceImp;
+import com.bank.profile.dto.ActualRegistrationDto;
+import com.bank.profile.entity.ActualRegistrationEntity;
+import com.bank.profile.mapper.ActualRegistrationMapper;
+import com.bank.profile.repository.ActualRegistrationRepository;
+import com.bank.profile.service.impl.ActualRegistrationServiceImp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,22 +16,22 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public class TestRegistrationService {
+public class ActualRegistrationServiceTest {
 
-    private RegistrationRepository repository;
-    private RegistrationMapper mapper;
-    private RegistrationService service;
+    private ActualRegistrationRepository repository;
+    private ActualRegistrationMapper mapper;
+    private ActualRegistrationService service;
 
-    private RegistrationDto dto;
-    private RegistrationEntity entity;
+    private ActualRegistrationDto dto;
+    private ActualRegistrationEntity entity;
 
     @BeforeEach
     public void setUp() {
-        repository = mock(RegistrationRepository.class);
-        mapper = mock(RegistrationMapper.class);
-        service = new RegistrationServiceImp(repository, mapper);
+        repository = mock(ActualRegistrationRepository.class);
+        mapper = mock(ActualRegistrationMapper.class);
+        service = new ActualRegistrationServiceImp(repository, mapper);
 
-        dto = new RegistrationDto();
+        dto = new ActualRegistrationDto();
         dto.setId(1L);
         dto.setCountry("Country");
         dto.setRegion("Region");
@@ -45,7 +44,7 @@ public class TestRegistrationService {
         dto.setFlatNumber("456");
         dto.setIndex(123456L);
 
-        entity = new RegistrationEntity();
+        entity = new ActualRegistrationEntity();
         entity.setId(1L);
         entity.setCountry("Country");
         entity.setRegion("Region");
@@ -57,6 +56,7 @@ public class TestRegistrationService {
         entity.setHouseBlock("Block A");
         entity.setFlatNumber("456");
         entity.setIndex(123456L);
+
     }
 
     @Test
@@ -64,7 +64,7 @@ public class TestRegistrationService {
         when(repository.findById(1L)).thenReturn(Optional.of(entity));
         when(mapper.toDto(entity)).thenReturn(dto);
 
-        RegistrationDto result = service.findById(1L);
+        ActualRegistrationDto result = service.findById(1L);
 
         assertNotNull(result);
         assertEquals(dto.getId(), result.getId());
@@ -97,7 +97,7 @@ public class TestRegistrationService {
         when(repository.save(any())).thenReturn(entity);
         when(mapper.toDto(entity)).thenReturn(dto);
 
-        RegistrationDto result = service.save(dto);
+        ActualRegistrationDto result = service.save(dto);
 
         assertNotNull(result);
         assertEquals(dto.getId(), result.getId());
@@ -118,12 +118,12 @@ public class TestRegistrationService {
     @Test
     public void testUpdate() {
         when(repository.findById(1L)).thenReturn(Optional.of(entity));
-        when(repository.save(any(RegistrationEntity.class))).thenReturn(entity);
-        when(mapper.mergeToEntity(any(RegistrationDto.class), any(RegistrationEntity.class)))
+        when(repository.save(any(ActualRegistrationEntity.class))).thenReturn(entity);
+        when(mapper.mergeToEntity(any(ActualRegistrationDto.class), any(ActualRegistrationEntity.class)))
                 .thenReturn(entity);
         when(mapper.toDto(entity)).thenReturn(dto);
 
-        RegistrationDto result = service.update(1L, dto);
+        ActualRegistrationDto result = service.update(1L, dto);
 
         assertNotNull(result);
         assertEquals(dto.getId(), result.getId());
@@ -146,27 +146,27 @@ public class TestRegistrationService {
 
     @Test
     public void testFindAllById() {
-        List<RegistrationEntity> entities = Collections.singletonList(entity);
+        List<ActualRegistrationEntity> entities = Collections.singletonList(entity);
         when(repository.findAllById(anyList())).thenReturn(entities);
         when(mapper.toDtoList(entities)).thenReturn(Collections.singletonList(dto));
 
-        List<RegistrationDto> result = service.findAllById(Collections.singletonList(1L));
+        List<ActualRegistrationDto> result = service.findAllById(Collections.singletonList(1L));
 
         assertNotNull(result);
         assertEquals(1, result.size());
 
-        RegistrationDto actualDto = result.get(0);
-        assertEquals(dto.getId(), actualDto.getId());
-        assertEquals(dto.getCountry(), actualDto.getCountry());
-        assertEquals(dto.getRegion(), actualDto.getRegion());
-        assertEquals(dto.getCity(), actualDto.getCity());
-        assertEquals(dto.getDistrict(), actualDto.getDistrict());
-        assertEquals(dto.getLocality(), actualDto.getLocality());
-        assertEquals(dto.getStreet(), actualDto.getStreet());
-        assertEquals(dto.getHouseNumber(), actualDto.getHouseNumber());
-        assertEquals(dto.getHouseBlock(), actualDto.getHouseBlock());
-        assertEquals(dto.getFlatNumber(), actualDto.getFlatNumber());
-        assertEquals(dto.getIndex(), actualDto.getIndex());
+        ActualRegistrationDto actualRegistrationDto = result.get(0);
+        assertEquals(dto.getId(), actualRegistrationDto.getId());
+        assertEquals(dto.getCountry(), actualRegistrationDto.getCountry());
+        assertEquals(dto.getRegion(), actualRegistrationDto.getRegion());
+        assertEquals(dto.getCity(), actualRegistrationDto.getCity());
+        assertEquals(dto.getDistrict(), actualRegistrationDto.getDistrict());
+        assertEquals(dto.getLocality(), actualRegistrationDto.getLocality());
+        assertEquals(dto.getStreet(), actualRegistrationDto.getStreet());
+        assertEquals(dto.getHouseNumber(), actualRegistrationDto.getHouseNumber());
+        assertEquals(dto.getHouseBlock(), actualRegistrationDto.getHouseBlock());
+        assertEquals(dto.getFlatNumber(), actualRegistrationDto.getFlatNumber());
+        assertEquals(dto.getIndex(), actualRegistrationDto.getIndex());
 
         verify(repository, times(1)).findAllById(Collections.singletonList(1L));
         verify(mapper, times(1)).toDtoList(entities);

@@ -1,6 +1,5 @@
-package controller;
+package com.bank.profile.controller;
 
-import com.bank.profile.controller.AccountDetailsIdController;
 import com.bank.profile.dto.AccountDetailsIdDto;
 import com.bank.profile.dto.ProfileDto;
 import com.bank.profile.service.AccountDetailsIdService;
@@ -17,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.*;
 
-public class TestAccountDetailsIdController {
+public class AccountDetailsIdControllerTest {
 
     private AccountDetailsIdDto mockDto;
     private AccountDetailsIdService serviceMock;

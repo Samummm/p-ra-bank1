@@ -1,8 +1,10 @@
-package controller;
+package com.bank.profile.controller;
 
-import com.bank.profile.controller.RegistrationController;
-import com.bank.profile.dto.RegistrationDto;
-import com.bank.profile.service.RegistrationService;
+
+import com.bank.profile.dto.ActualRegistrationDto;
+import com.bank.profile.dto.PassportDto;
+import com.bank.profile.dto.ProfileDto;
+import com.bank.profile.service.ProfileService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -16,37 +18,35 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.*;
 
-public class TestRegistrationController {
+public class ProfileControllerTest {
 
-    private RegistrationDto mockDto;
-    private RegistrationService serviceMock;
-    private RegistrationController controller;
+    private ProfileDto mockDto;
+    private ProfileService serviceMock;
+    private ProfileController controller;
 
     @BeforeEach
     public void setUp() {
-        mockDto = new RegistrationDto();
-        mockDto = new RegistrationDto();
+        PassportDto mockPassportDto = Mockito.mock(PassportDto.class);
+        ActualRegistrationDto mockActualRegistrationDto = Mockito.mock(ActualRegistrationDto.class);
+        mockDto = new ProfileDto();
         mockDto.setId(1L);
-        mockDto.setCountry("Country");
-        mockDto.setRegion("Region");
-        mockDto.setCity("City");
-        mockDto.setDistrict("District");
-        mockDto.setLocality("Locality");
-        mockDto.setStreet("Street");
-        mockDto.setHouseNumber("123");
-        mockDto.setHouseBlock("Block A");
-        mockDto.setFlatNumber("456");
-        mockDto.setIndex(123456L);
+        mockDto.setPhoneNumber(1234567890L);
+        mockDto.setEmail("test@example.com");
+        mockDto.setNameOnCard("John Wick");
+        mockDto.setInn(123456789012L);
+        mockDto.setSnils(98765432109L);
+        mockDto.setPassport(mockPassportDto);
+        mockDto.setActualRegistration(mockActualRegistrationDto);
 
-        serviceMock = Mockito.mock(RegistrationService.class);
-        controller = new RegistrationController(serviceMock);
+        serviceMock = Mockito.mock(ProfileService.class);
+        controller = new ProfileController(serviceMock);
     }
 
     @Test
     public void testRead() {
         Mockito.when(serviceMock.findById(anyLong())).thenReturn(mockDto);
 
-        ResponseEntity<RegistrationDto> response = controller.read(1L);
+        ResponseEntity<ProfileDto> response = controller.read(1L);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(mockDto, response.getBody());
@@ -54,9 +54,9 @@ public class TestRegistrationController {
 
     @Test
     public void testCreate() {
-        Mockito.when(serviceMock.save(any(RegistrationDto.class))).thenReturn(mockDto);
+        Mockito.when(serviceMock.save(any(ProfileDto.class))).thenReturn(mockDto);
 
-        ResponseEntity<RegistrationDto> response = controller.create(mockDto);
+        ResponseEntity<ProfileDto> response = controller.create(mockDto);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(mockDto, response.getBody());
@@ -64,9 +64,9 @@ public class TestRegistrationController {
 
     @Test
     public void testUpdate() {
-        Mockito.when(serviceMock.update(anyLong(), any(RegistrationDto.class))).thenReturn(mockDto);
+        Mockito.when(serviceMock.update(anyLong(), any(ProfileDto.class))).thenReturn(mockDto);
 
-        ResponseEntity<RegistrationDto> response = controller.update(1L, mockDto);
+        ResponseEntity<ProfileDto> response = controller.update(1L, mockDto);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(mockDto, response.getBody());
@@ -74,10 +74,10 @@ public class TestRegistrationController {
 
     @Test
     public void testReadAllById() {
-        List<RegistrationDto> mockDtoList = Collections.singletonList(mockDto);
+        List<ProfileDto> mockDtoList = Collections.singletonList(mockDto);
         Mockito.when(serviceMock.findAllById(anyList())).thenReturn(mockDtoList);
 
-        ResponseEntity<List<RegistrationDto>> response = controller.readAllById(Collections.singletonList(1L));
+        ResponseEntity<List<ProfileDto>> response = controller.readAllById(Collections.singletonList(1L));
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(mockDtoList, response.getBody());

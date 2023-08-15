@@ -1,4 +1,4 @@
-package service;
+package com.bank.profile.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -7,7 +7,6 @@ import com.bank.profile.dto.AuditDto;
 import com.bank.profile.entity.AuditEntity;
 import com.bank.profile.mapper.AuditMapper;
 import com.bank.profile.repository.AuditRepository;
-import com.bank.profile.service.AuditService;
 import com.bank.profile.service.impl.AuditServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +15,7 @@ import javax.persistence.EntityNotFoundException;
 import java.sql.Timestamp;
 import java.util.Optional;
 
-public class TestAuditService {
+public class AuditServiceTest {
 
     private AuditRepository repository;
     private AuditMapper mapper;

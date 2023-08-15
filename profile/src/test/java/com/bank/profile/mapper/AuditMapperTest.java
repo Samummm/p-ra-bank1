@@ -1,4 +1,4 @@
-package mapper;
+package com.bank.profile.mapper;
 
 
 import com.bank.profile.dto.AuditDto;
@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class TestAuditMapper {
+public class AuditMapperTest {
 
     private AuditMapper mapper = Mappers.getMapper(AuditMapper.class);
 

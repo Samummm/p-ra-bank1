@@ -1,4 +1,4 @@
-package service;
+package com.bank.profile.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -7,7 +7,6 @@ import com.bank.profile.dto.AccountDetailsIdDto;
 import com.bank.profile.entity.AccountDetailsIdEntity;
 import com.bank.profile.mapper.AccountDetailsIdMapper;
 import com.bank.profile.repository.AccountDetailsIdRepository;
-import com.bank.profile.service.AccountDetailsIdService;
 import com.bank.profile.service.impl.AccountDetailsIdServiceImp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,7 +16,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public class TestAccountDetailsIdService {
+public class AccountDetailsIdServiceTest {
 
     private AccountDetailsIdRepository repository;
     private AccountDetailsIdMapper mapper;

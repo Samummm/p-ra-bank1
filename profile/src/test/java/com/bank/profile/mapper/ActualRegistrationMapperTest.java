@@ -1,8 +1,8 @@
-package mapper;
+package com.bank.profile.mapper;
 
-import com.bank.profile.dto.RegistrationDto;
-import com.bank.profile.entity.RegistrationEntity;
-import com.bank.profile.mapper.RegistrationMapper;
+
+import com.bank.profile.dto.ActualRegistrationDto;
+import com.bank.profile.entity.ActualRegistrationEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
@@ -13,16 +13,16 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class TestRegistrationMapper {
+public class ActualRegistrationMapperTest {
 
-    private RegistrationMapper mapper = Mappers.getMapper(RegistrationMapper.class);
+    private ActualRegistrationMapper mapper = Mappers.getMapper(ActualRegistrationMapper.class);
 
-    private RegistrationEntity entity;
-    private RegistrationDto dto;
+    private ActualRegistrationEntity entity;
+    private ActualRegistrationDto dto;
 
     @BeforeEach
     public void setup() {
-        entity = new RegistrationEntity();
+        entity = new ActualRegistrationEntity();
         entity.setId(1L);
         entity.setCountry("Country");
         entity.setRegion("Region");
@@ -35,7 +35,7 @@ public class TestRegistrationMapper {
         entity.setFlatNumber("456");
         entity.setIndex(123456L);
 
-        dto = new RegistrationDto();
+        dto = new ActualRegistrationDto();
         dto.setId(2L);
         dto.setCountry("Country2");
         dto.setRegion("Region2");
@@ -51,7 +51,7 @@ public class TestRegistrationMapper {
 
     @Test
     public void testToEntity() {
-        RegistrationEntity resultEntity = mapper.toEntity(dto);
+        ActualRegistrationEntity resultEntity = mapper.toEntity(dto);
 
         assertEquals(dto.getCountry(), resultEntity.getCountry());
         assertEquals(dto.getRegion(), resultEntity.getRegion());
@@ -67,7 +67,7 @@ public class TestRegistrationMapper {
 
     @Test
     public void testToDto() {
-        RegistrationDto resultDto = mapper.toDto(entity);
+        ActualRegistrationDto resultDto = mapper.toDto(entity);
 
         assertEquals(entity.getId(), resultDto.getId());
         assertEquals(entity.getCountry(), resultDto.getCountry());
@@ -84,7 +84,7 @@ public class TestRegistrationMapper {
 
     @Test
     public void testMergeToEntity() {
-        RegistrationEntity mergedEntity = mapper.mergeToEntity(dto, entity);
+        ActualRegistrationEntity mergedEntity = mapper.mergeToEntity(dto, entity);
 
         assertEquals(dto.getCountry(), mergedEntity.getCountry());
         assertEquals(dto.getRegion(), mergedEntity.getRegion());
@@ -100,12 +100,12 @@ public class TestRegistrationMapper {
 
     @Test
     public void testToDtoList() {
-        List<RegistrationEntity> entityList = Collections.singletonList(entity);
+        List<ActualRegistrationEntity> entityList = Collections.singletonList(entity);
 
-        List<RegistrationDto> dtoList = mapper.toDtoList(entityList);
+        List<ActualRegistrationDto> dtoList = mapper.toDtoList(entityList);
 
         assertEquals(1, dtoList.size());
-        RegistrationDto resultDto = dtoList.get(0);
+        ActualRegistrationDto resultDto = dtoList.get(0);
 
         assertEquals(entity.getId(), resultDto.getId());
         assertEquals(entity.getCountry(), resultDto.getCountry());
@@ -124,8 +124,10 @@ public class TestRegistrationMapper {
     public void testToDto_NullInput() {
         entity = null;
 
-        RegistrationDto dto = mapper.toDto(entity);
+        ActualRegistrationDto dto = mapper.toDto(entity);
 
         assertNull(dto);
     }
+
 }
+

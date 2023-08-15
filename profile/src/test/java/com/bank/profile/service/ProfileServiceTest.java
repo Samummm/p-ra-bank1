@@ -1,4 +1,4 @@
-package service;
+package com.bank.profile.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -7,7 +7,6 @@ import com.bank.profile.dto.ProfileDto;
 import com.bank.profile.entity.ProfileEntity;
 import com.bank.profile.mapper.ProfileMapper;
 import com.bank.profile.repository.ProfileRepository;
-import com.bank.profile.service.ProfileService;
 import com.bank.profile.service.impl.ProfileServiceImp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,7 +16,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public class TestProfileService {
+public class ProfileServiceTest {
 
     private ProfileRepository repository;
     private ProfileMapper mapper;

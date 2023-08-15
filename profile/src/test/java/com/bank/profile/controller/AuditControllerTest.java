@@ -1,6 +1,5 @@
-package controller;
+package com.bank.profile.controller;
 
-import com.bank.profile.controller.AuditController;
 import com.bank.profile.dto.AuditDto;
 import com.bank.profile.service.AuditService;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.*;
 
-public class TestAuditController {
+public class AuditControllerTest {
 
     private AuditDto mockDto;
     private AuditService serviceMock;

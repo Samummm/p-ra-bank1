@@ -1,4 +1,4 @@
-package service;
+package com.bank.profile.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -7,7 +7,6 @@ import com.bank.profile.dto.PassportDto;
 import com.bank.profile.entity.PassportEntity;
 import com.bank.profile.mapper.PassportMapper;
 import com.bank.profile.repository.PassportRepository;
-import com.bank.profile.service.PassportService;
 import com.bank.profile.service.impl.PassportServiceImp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +17,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public class TestPassportService {
+public class PassportServiceTest {
 
     private PassportRepository repository;
     private PassportMapper mapper;

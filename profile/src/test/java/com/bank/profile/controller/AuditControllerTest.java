@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.*;
-
+// TODO отрефакторить также, как в AccountDetailsIdControllerTest
 public class AuditControllerTest {
 
     private AuditDto mockDto;

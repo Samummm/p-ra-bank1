@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class ProfileServiceTest {
-
+    // TODO отрефакторить также, как в AccountDetailsIdServiceTest
     private ProfileRepository repository;
     private ProfileMapper mapper;
     private ProfileService service;

@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class RegistrationMapperTest {
-
+    // TODO отрефакторить также, кака в AccountDetailsIdMapperTest
     private RegistrationMapper mapper = Mappers.getMapper(RegistrationMapper.class);
 
     private RegistrationEntity entity;

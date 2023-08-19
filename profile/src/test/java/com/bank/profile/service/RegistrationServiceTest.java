@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class RegistrationServiceTest {
-
+    // TODO отрефакторить также, как в AccountDetailsIdServiceTest
     private RegistrationRepository repository;
     private RegistrationMapper mapper;
     private RegistrationService service;

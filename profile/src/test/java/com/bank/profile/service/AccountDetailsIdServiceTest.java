@@ -1,5 +1,5 @@
 package com.bank.profile.service;
-
+// TODO разверни импорты
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -18,6 +18,11 @@ import java.util.Optional;
 
 public class AccountDetailsIdServiceTest {
 
+    // TODO добавь @DisplayName с понятным описанием теста на русском по типу:
+    // "поиск по id, позитивный сценарий","поиск по несуществующему id, негативный сценарий"
+    // TODO также необходимо переименовать тесты следующим образом:
+    // тестируемый метод + описание + Positive/NegativeTest.
+    // Например, findByIdPositiveTest; findByNonExistIdNegativeNest
     private AccountDetailsIdRepository repository;
     private AccountDetailsIdMapper mapper;
     private AccountDetailsIdService service;
@@ -47,10 +52,12 @@ public class AccountDetailsIdServiceTest {
 
         AccountDetailsIdDto result = service.findById(1L);
 
+        // TODO можно объединить в AssertAll, чтобы видеть какие ассерты падают и какие отрабатывают
         assertNotNull(result);
         assertEquals(dto.getId(), result.getId());
         assertEquals(dto.getAccountId(), result.getAccountId());
 
+        // TODO лучше вынеси перед ассертами
         verify(repository, times(1)).findById(1L);
         verify(mapper, times(1)).toDto(entity);
     }
@@ -71,10 +78,12 @@ public class AccountDetailsIdServiceTest {
 
         AccountDetailsIdDto result = service.save(dto);
 
+        // TODO можно объединить в AssertAll, чтобы видеть какие ассерты падают и какие отрабатывают
         assertNotNull(result);
         assertEquals(dto.getId(), result.getId());
         assertEquals(dto.getAccountId(), result.getAccountId());
 
+        // TODO лучше вынеси перед ассертами
         verify(mapper, times(1)).toDto(entity);
     }
 
@@ -88,10 +97,12 @@ public class AccountDetailsIdServiceTest {
 
         AccountDetailsIdDto result = service.update(1L, dto);
 
+        // TODO можно объединить в AssertAll, чтобы видеть какие ассерты падают и какие отрабатывают
         assertNotNull(result);
         assertEquals(dto.getId(), result.getId());
         assertEquals(dto.getAccountId(), result.getAccountId());
 
+        // TODO лучше вынеси перед ассертами
         verify(repository, times(1)).findById(1L);
         verify(repository, times(1)).save(entity);
         verify(mapper, times(1)).mergeToEntity(dto, entity);
@@ -106,13 +117,16 @@ public class AccountDetailsIdServiceTest {
 
         List<AccountDetailsIdDto> result = service.findAllById(Collections.singletonList(1L));
 
+        // TODO можно объединить в AssertAll, чтобы видеть какие ассерты падают и какие отрабатывают
         assertNotNull(result);
         assertEquals(1, result.size());
 
+        // TODO лучше вынеси перед ассертами
         AccountDetailsIdDto actualDto = result.get(0);
         assertEquals(dto.getId(), actualDto.getId());
         assertEquals(dto.getAccountId(), actualDto.getAccountId());
 
+        // TODO лучше вынеси перед ассертами
         verify(repository, times(1)).findAllById(Collections.singletonList(1L));
         verify(mapper, times(1)).toDtoList(entities);
     }

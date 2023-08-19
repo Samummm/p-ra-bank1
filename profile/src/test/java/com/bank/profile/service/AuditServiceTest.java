@@ -16,7 +16,7 @@ import java.sql.Timestamp;
 import java.util.Optional;
 
 public class AuditServiceTest {
-
+    // TODO отрефакторить также, как в AccountDetailsIdServiceTest
     private AuditRepository repository;
     private AuditMapper mapper;
     private AuditService service;

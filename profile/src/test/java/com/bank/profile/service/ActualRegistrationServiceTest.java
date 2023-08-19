@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class ActualRegistrationServiceTest {
+    // TODO отрефакторить также, как в AccountDetailsIdServiceTest
 
     private ActualRegistrationRepository repository;
     private ActualRegistrationMapper mapper;
@@ -66,6 +67,7 @@ public class ActualRegistrationServiceTest {
 
         ActualRegistrationDto result = service.findById(1L);
 
+        // TODO можно объединить в AssertAll, чтобы видеть какие ассерты падают и какие отрабатывают
         assertNotNull(result);
         assertEquals(dto.getId(), result.getId());
         assertEquals(dto.getCountry(), result.getCountry());
@@ -99,6 +101,7 @@ public class ActualRegistrationServiceTest {
 
         ActualRegistrationDto result = service.save(dto);
 
+        // TODO можно объединить в AssertAll, чтобы видеть какие ассерты падают и какие отрабатывают
         assertNotNull(result);
         assertEquals(dto.getId(), result.getId());
         assertEquals(dto.getCountry(), result.getCountry());
@@ -125,6 +128,7 @@ public class ActualRegistrationServiceTest {
 
         ActualRegistrationDto result = service.update(1L, dto);
 
+        // TODO можно объединить в AssertAll, чтобы видеть какие ассерты падают и какие отрабатывают
         assertNotNull(result);
         assertEquals(dto.getId(), result.getId());
         assertEquals(dto.getCountry(), result.getCountry());
@@ -156,6 +160,7 @@ public class ActualRegistrationServiceTest {
         assertEquals(1, result.size());
 
         ActualRegistrationDto actualRegistrationDto = result.get(0);
+        // TODO можно объединить в AssertAll, чтобы видеть какие ассерты падают и какие отрабатывают
         assertEquals(dto.getId(), actualRegistrationDto.getId());
         assertEquals(dto.getCountry(), actualRegistrationDto.getCountry());
         assertEquals(dto.getRegion(), actualRegistrationDto.getRegion());

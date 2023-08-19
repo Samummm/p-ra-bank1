@@ -20,7 +20,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ProfileMapperTest {
-
+    // TODO отрефакторить также, кака в AccountDetailsIdMapperTest
     private ProfileMapperImpl mapperImpl = new ProfileMapperImpl();
 
     private ProfileMapper mapper = Mappers.getMapper(ProfileMapper.class);

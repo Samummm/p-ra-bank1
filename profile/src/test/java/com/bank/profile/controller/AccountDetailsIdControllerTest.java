@@ -14,9 +14,16 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+// TODO разверни импорты
 import static org.mockito.ArgumentMatchers.*;
 
 public class AccountDetailsIdControllerTest {
+
+    // TODO добавь @DisplayName с понятным описанием теста на русском по типу:
+//      "поиск по id, позитивный сценарий","поиск по несуществующему id, негативный сценарий"
+//  TODO также необходимо переименовать тесты следующим образом:
+//   тестируемый метод + описание + Positive/NegativeTest.
+//   Например, findByIdPositiveTest; findByNonExistIdNegativeNest
 
     private AccountDetailsIdDto mockDto;
     private AccountDetailsIdService serviceMock;
@@ -88,6 +95,6 @@ public class AccountDetailsIdControllerTest {
 
         assertEquals("Invalid data", exception.getMessage());
     }
-
+// TODO лишние пустые строки
 
 }

@@ -14,7 +14,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.*;
-
+// TODO отрефакторить также, как в AccountDetailsIdControllerTest
 public class RegistrationControllerTest {
 
     private RegistrationDto mockDto;

@@ -4,26 +4,19 @@ import com.bank.profile.dto.AccountDetailsIdDto;
 import com.bank.profile.dto.ProfileDto;
 import com.bank.profile.service.AccountDetailsIdService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
 import java.util.Collections;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-// TODO разверни импорты
 import static org.mockito.ArgumentMatchers.*;
 
+@DisplayName("Тестируем методы контроллера AccountDetailsIdController")
 public class AccountDetailsIdControllerTest {
-
-    // TODO добавь @DisplayName с понятным описанием теста на русском по типу:
-//      "поиск по id, позитивный сценарий","поиск по несуществующему id, негативный сценарий"
-//  TODO также необходимо переименовать тесты следующим образом:
-//   тестируемый метод + описание + Positive/NegativeTest.
-//   Например, findByIdPositiveTest; findByNonExistIdNegativeNest
 
     private AccountDetailsIdDto mockDto;
     private AccountDetailsIdService serviceMock;
@@ -43,7 +36,8 @@ public class AccountDetailsIdControllerTest {
     }
 
     @Test
-    public void testRead() {
+    @DisplayName("поиск по id, позитивный сценарий")
+    public void readPositiveTest() {
         Mockito.when(serviceMock.findById(anyLong())).thenReturn(mockDto);
 
         ResponseEntity<AccountDetailsIdDto> response = controller.read(1L);
@@ -53,7 +47,8 @@ public class AccountDetailsIdControllerTest {
     }
 
     @Test
-    public void testReadAllById() {
+    @DisplayName("поиск по нескольким id, позитивный сценарий")
+    public void readAllByIdPositiveTest() {
         List<AccountDetailsIdDto> mockDtoList = Collections.singletonList(mockDto);
         Mockito.when(serviceMock.findAllById(anyList())).thenReturn(mockDtoList);
 
@@ -64,7 +59,8 @@ public class AccountDetailsIdControllerTest {
     }
 
     @Test
-    public void testCreate() {
+    @DisplayName("создание аккаунта, позитивный сценарий")
+    public void createPositiveTest() {
         AccountDetailsIdDto requestDto = new AccountDetailsIdDto();
         Mockito.when(serviceMock.save(any(AccountDetailsIdDto.class))).thenReturn(mockDto);
 
@@ -75,7 +71,8 @@ public class AccountDetailsIdControllerTest {
     }
 
     @Test
-    public void testUpdate() {
+    @DisplayName("обновление аккаунта, позитивный сценарий")
+    public void updatePositiveTest() {
         AccountDetailsIdDto requestDto = new AccountDetailsIdDto();
         Mockito.when(serviceMock.update(anyLong(), any(AccountDetailsIdDto.class))).thenReturn(mockDto);
 
@@ -86,7 +83,8 @@ public class AccountDetailsIdControllerTest {
     }
 
     @Test
-    public void testRead_InvalidData() {
+    @DisplayName("ошибка несуществующего id, негативный сценарий")
+    public void readNegativeTest() {
         Mockito.when(serviceMock.findById(anyLong())).thenThrow(new IllegalArgumentException("Invalid data"));
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -95,6 +93,4 @@ public class AccountDetailsIdControllerTest {
 
         assertEquals("Invalid data", exception.getMessage());
     }
-// TODO лишние пустые строки
-
 }

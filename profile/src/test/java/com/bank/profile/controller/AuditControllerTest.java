@@ -3,15 +3,15 @@ package com.bank.profile.controller;
 import com.bank.profile.dto.AuditDto;
 import com.bank.profile.service.AuditService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-
 import java.sql.Timestamp;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.*;
-// TODO отрефакторить также, как в AccountDetailsIdControllerTest
+
+@DisplayName("Тестируем методы контроллера AuditController")
 public class AuditControllerTest {
 
     private AuditDto mockDto;
@@ -36,7 +36,8 @@ public class AuditControllerTest {
     }
 
     @Test
-    public void testRead() {
+    @DisplayName("поиск по id, позитивный сценарий")
+    public void readPositiveTest() {
         Mockito.when(serviceMock.findById(anyLong())).thenReturn(mockDto);
 
         AuditDto response = controller.read(1L);
@@ -45,7 +46,8 @@ public class AuditControllerTest {
     }
 
     @Test
-    public void testRead_InvalidData() {
+    @DisplayName("ошибка несуществующего id, негативный сценарий")
+    public void readNegativeTest() {
         Mockito.when(serviceMock.findById(anyLong())).thenThrow(new IllegalArgumentException("Invalid data"));
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {

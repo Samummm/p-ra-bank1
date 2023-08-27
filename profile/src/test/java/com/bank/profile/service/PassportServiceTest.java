@@ -2,27 +2,26 @@ package com.bank.profile.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-
 import com.bank.profile.dto.PassportDto;
 import com.bank.profile.entity.PassportEntity;
 import com.bank.profile.mapper.PassportMapper;
 import com.bank.profile.repository.PassportRepository;
 import com.bank.profile.service.impl.PassportServiceImp;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+@DisplayName("Тестируем методы сервиса PassportService")
 public class PassportServiceTest {
-    // TODO отрефакторить также, как в AccountDetailsIdServiceTest
+
     private PassportRepository repository;
     private PassportMapper mapper;
     private PassportService service;
-
     private PassportDto dto;
     private PassportEntity entity;
 
@@ -65,33 +64,37 @@ public class PassportServiceTest {
     }
 
     @Test
-    public void testFindById_ValidId() {
+    @DisplayName("поиск по id, позитивный сценарий")
+    public void findByIdPositiveTest() {
         when(repository.findById(1L)).thenReturn(Optional.of(entity));
         when(mapper.toDto(entity)).thenReturn(dto);
 
         PassportDto result = service.findById(1L);
 
-        assertNotNull(result);
-        assertEquals(dto.getId(), result.getId());
-        assertEquals(dto.getSeries(), result.getSeries());
-        assertEquals(dto.getNumber(), result.getNumber());
-        assertEquals(dto.getLastName(), result.getLastName());
-        assertEquals(dto.getFirstName(), result.getFirstName());
-        assertEquals(dto.getMiddleName(), result.getMiddleName());
-        assertEquals(dto.getGender(), result.getGender());
-        assertEquals(dto.getBirthDate(), result.getBirthDate());
-        assertEquals(dto.getBirthPlace(), result.getBirthPlace());
-        assertEquals(dto.getIssuedBy(), result.getIssuedBy());
-        assertEquals(dto.getDateOfIssue(), result.getDateOfIssue());
-        assertEquals(dto.getDivisionCode(), result.getDivisionCode());
-        assertEquals(dto.getExpirationDate(), result.getExpirationDate());
-
         verify(repository, times(1)).findById(1L);
         verify(mapper, times(1)).toDto(entity);
+
+        assertAll(
+                () -> assertNotNull(result),
+                () -> assertEquals(dto.getId(), result.getId()),
+                () -> assertEquals(dto.getSeries(), result.getSeries()),
+                () -> assertEquals(dto.getNumber(), result.getNumber()),
+                () -> assertEquals(dto.getLastName(), result.getLastName()),
+                () -> assertEquals(dto.getFirstName(), result.getFirstName()),
+                () -> assertEquals(dto.getMiddleName(), result.getMiddleName()),
+                () -> assertEquals(dto.getGender(), result.getGender()),
+                () -> assertEquals(dto.getBirthDate(), result.getBirthDate()),
+                () -> assertEquals(dto.getBirthPlace(), result.getBirthPlace()),
+                () -> assertEquals(dto.getIssuedBy(), result.getIssuedBy()),
+                () -> assertEquals(dto.getDateOfIssue(), result.getDateOfIssue()),
+                () -> assertEquals(dto.getDivisionCode(), result.getDivisionCode()),
+                () -> assertEquals(dto.getExpirationDate(), result.getExpirationDate())
+        );
     }
 
     @Test
-    public void testFindById_InvalidId() {
+    @DisplayName("поиск по несуществующему id, негативный сценарий")
+    public void findByIdNegativeTest() {
         when(repository.findById(anyLong())).thenReturn(Optional.empty());
 
         assertThrows(EntityNotFoundException.class, () -> service.findById(1L));
@@ -100,32 +103,36 @@ public class PassportServiceTest {
     }
 
     @Test
-    public void testSave() {
+    @DisplayName("сохранение, позитивный сценарий")
+    public void savePositiveTest() {
         when(repository.save(any())).thenReturn(entity);
         when(mapper.toDto(entity)).thenReturn(dto);
 
         PassportDto result = service.save(dto);
 
-        assertNotNull(result);
-        assertEquals(dto.getId(), result.getId());
-        assertEquals(dto.getSeries(), result.getSeries());
-        assertEquals(dto.getNumber(), result.getNumber());
-        assertEquals(dto.getLastName(), result.getLastName());
-        assertEquals(dto.getFirstName(), result.getFirstName());
-        assertEquals(dto.getMiddleName(), result.getMiddleName());
-        assertEquals(dto.getGender(), result.getGender());
-        assertEquals(dto.getBirthDate(), result.getBirthDate());
-        assertEquals(dto.getBirthPlace(), result.getBirthPlace());
-        assertEquals(dto.getIssuedBy(), result.getIssuedBy());
-        assertEquals(dto.getDateOfIssue(), result.getDateOfIssue());
-        assertEquals(dto.getDivisionCode(), result.getDivisionCode());
-        assertEquals(dto.getExpirationDate(), result.getExpirationDate());
-
         verify(mapper, times(1)).toDto(entity);
+
+        assertAll(
+                () -> assertNotNull(result),
+                () -> assertEquals(dto.getId(), result.getId()),
+                () -> assertEquals(dto.getSeries(), result.getSeries()),
+                () -> assertEquals(dto.getNumber(), result.getNumber()),
+                () -> assertEquals(dto.getLastName(), result.getLastName()),
+                () -> assertEquals(dto.getFirstName(), result.getFirstName()),
+                () -> assertEquals(dto.getMiddleName(), result.getMiddleName()),
+                () -> assertEquals(dto.getGender(), result.getGender()),
+                () -> assertEquals(dto.getBirthDate(), result.getBirthDate()),
+                () -> assertEquals(dto.getBirthPlace(), result.getBirthPlace()),
+                () -> assertEquals(dto.getIssuedBy(), result.getIssuedBy()),
+                () -> assertEquals(dto.getDateOfIssue(), result.getDateOfIssue()),
+                () -> assertEquals(dto.getDivisionCode(), result.getDivisionCode()),
+                () -> assertEquals(dto.getExpirationDate(), result.getExpirationDate())
+        );
     }
 
     @Test
-    public void testUpdate() {
+    @DisplayName("обновление, позитивный сценарий")
+    public void updatePositiveTest() {
         when(repository.findById(1L)).thenReturn(Optional.of(entity));
         when(repository.save(any(PassportEntity.class))).thenReturn(entity);
         when(mapper.mergeToEntity(any(PassportDto.class), any(PassportEntity.class)))
@@ -134,55 +141,61 @@ public class PassportServiceTest {
 
         PassportDto result = service.update(1L, dto);
 
-        assertNotNull(result);
-        assertEquals(dto.getId(), result.getId());
-        assertEquals(dto.getSeries(), result.getSeries());
-        assertEquals(dto.getNumber(), result.getNumber());
-        assertEquals(dto.getLastName(), result.getLastName());
-        assertEquals(dto.getFirstName(), result.getFirstName());
-        assertEquals(dto.getMiddleName(), result.getMiddleName());
-        assertEquals(dto.getGender(), result.getGender());
-        assertEquals(dto.getBirthDate(), result.getBirthDate());
-        assertEquals(dto.getBirthPlace(), result.getBirthPlace());
-        assertEquals(dto.getIssuedBy(), result.getIssuedBy());
-        assertEquals(dto.getDateOfIssue(), result.getDateOfIssue());
-        assertEquals(dto.getDivisionCode(), result.getDivisionCode());
-        assertEquals(dto.getExpirationDate(), result.getExpirationDate());
-
         verify(repository, times(1)).findById(1L);
         verify(repository, times(1)).save(entity);
         verify(mapper, times(1)).mergeToEntity(dto, entity);
         verify(mapper, times(1)).toDto(entity);
+
+        assertAll(
+                () -> assertNotNull(result),
+                () -> assertEquals(dto.getId(), result.getId()),
+                () -> assertEquals(dto.getSeries(), result.getSeries()),
+                () -> assertEquals(dto.getNumber(), result.getNumber()),
+                () -> assertEquals(dto.getLastName(), result.getLastName()),
+                () -> assertEquals(dto.getFirstName(), result.getFirstName()),
+                () -> assertEquals(dto.getMiddleName(), result.getMiddleName()),
+                () -> assertEquals(dto.getGender(), result.getGender()),
+                () -> assertEquals(dto.getBirthDate(), result.getBirthDate()),
+                () -> assertEquals(dto.getBirthPlace(), result.getBirthPlace()),
+                () -> assertEquals(dto.getIssuedBy(), result.getIssuedBy()),
+                () -> assertEquals(dto.getDateOfIssue(), result.getDateOfIssue()),
+                () -> assertEquals(dto.getDivisionCode(), result.getDivisionCode()),
+                () -> assertEquals(dto.getExpirationDate(), result.getExpirationDate())
+        );
     }
 
     @Test
-    public void testFindAllById() {
+    @DisplayName("поиск по нескольким id, позитивный сценарий")
+    public void findAllByIdPositiveTest() {
         List<PassportEntity> entities = Collections.singletonList(entity);
         when(repository.findAllById(anyList())).thenReturn(entities);
         when(mapper.toDtoList(entities)).thenReturn(Collections.singletonList(dto));
 
         List<PassportDto> result = service.findAllById(Collections.singletonList(1L));
 
+        verify(repository, times(1)).findAllById(Collections.singletonList(1L));
+        verify(mapper, times(1)).toDtoList(entities);
+
         assertNotNull(result);
         assertEquals(1, result.size());
 
         PassportDto actualDto = result.get(0);
-        assertEquals(dto.getId(), actualDto.getId());
-        assertEquals(dto.getSeries(), actualDto.getSeries());
-        assertEquals(dto.getNumber(), actualDto.getNumber());
-        assertEquals(dto.getLastName(), actualDto.getLastName());
-        assertEquals(dto.getFirstName(), actualDto.getFirstName());
-        assertEquals(dto.getMiddleName(), actualDto.getMiddleName());
-        assertEquals(dto.getGender(), actualDto.getGender());
-        assertEquals(dto.getBirthDate(), actualDto.getBirthDate());
-        assertEquals(dto.getBirthPlace(), actualDto.getBirthPlace());
-        assertEquals(dto.getIssuedBy(), actualDto.getIssuedBy());
-        assertEquals(dto.getDateOfIssue(), actualDto.getDateOfIssue());
-        assertEquals(dto.getDivisionCode(), actualDto.getDivisionCode());
-        assertEquals(dto.getExpirationDate(), actualDto.getExpirationDate());
-
-        verify(repository, times(1)).findAllById(Collections.singletonList(1L));
-        verify(mapper, times(1)).toDtoList(entities);
+        assertAll(
+                () -> assertNotNull(result),
+                () -> assertEquals(dto.getId(), actualDto.getId()),
+                () -> assertEquals(dto.getSeries(), actualDto.getSeries()),
+                () -> assertEquals(dto.getNumber(), actualDto.getNumber()),
+                () -> assertEquals(dto.getLastName(), actualDto.getLastName()),
+                () -> assertEquals(dto.getFirstName(), actualDto.getFirstName()),
+                () -> assertEquals(dto.getMiddleName(), actualDto.getMiddleName()),
+                () -> assertEquals(dto.getGender(), actualDto.getGender()),
+                () -> assertEquals(dto.getBirthDate(), actualDto.getBirthDate()),
+                () -> assertEquals(dto.getBirthPlace(), actualDto.getBirthPlace()),
+                () -> assertEquals(dto.getIssuedBy(), actualDto.getIssuedBy()),
+                () -> assertEquals(dto.getDateOfIssue(), actualDto.getDateOfIssue()),
+                () -> assertEquals(dto.getDivisionCode(), actualDto.getDivisionCode()),
+                () -> assertEquals(dto.getExpirationDate(), actualDto.getExpirationDate())
+        );
     }
 }
 

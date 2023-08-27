@@ -1,23 +1,22 @@
 package com.bank.profile.controller;
 
-// TODO лишняя пустая строка
 import com.bank.profile.dto.ActualRegistrationDto;
 import com.bank.profile.dto.PassportDto;
 import com.bank.profile.dto.ProfileDto;
 import com.bank.profile.service.ProfileService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
 import java.util.Collections;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.*;
-// TODO отрефакторить также, как в AccountDetailsIdControllerTest
+
+@DisplayName("Тестируем методы контроллера ProfileController")
 public class ProfileControllerTest {
 
     private ProfileDto mockDto;
@@ -43,7 +42,8 @@ public class ProfileControllerTest {
     }
 
     @Test
-    public void testRead() {
+    @DisplayName("поиск по id, позитивный сценарий")
+    public void readPositiveTest() {
         Mockito.when(serviceMock.findById(anyLong())).thenReturn(mockDto);
 
         ResponseEntity<ProfileDto> response = controller.read(1L);
@@ -53,7 +53,8 @@ public class ProfileControllerTest {
     }
 
     @Test
-    public void testCreate() {
+    @DisplayName("создание аккаунта, позитивный сценарий")
+    public void createPositiveTest() {
         Mockito.when(serviceMock.save(any(ProfileDto.class))).thenReturn(mockDto);
 
         ResponseEntity<ProfileDto> response = controller.create(mockDto);
@@ -63,7 +64,8 @@ public class ProfileControllerTest {
     }
 
     @Test
-    public void testUpdate() {
+    @DisplayName("обновление аккаунта, позитивный сценарий")
+    public void updatePositiveTest() {
         Mockito.when(serviceMock.update(anyLong(), any(ProfileDto.class))).thenReturn(mockDto);
 
         ResponseEntity<ProfileDto> response = controller.update(1L, mockDto);
@@ -73,7 +75,8 @@ public class ProfileControllerTest {
     }
 
     @Test
-    public void testReadAllById() {
+    @DisplayName("поиск по нескольким id, позитивный сценарий")
+    public void readAllByIdPositiveTest() {
         List<ProfileDto> mockDtoList = Collections.singletonList(mockDto);
         Mockito.when(serviceMock.findAllById(anyList())).thenReturn(mockDtoList);
 
@@ -84,7 +87,8 @@ public class ProfileControllerTest {
     }
 
     @Test
-    public void testRead_InvalidData() {
+    @DisplayName("ошибка несуществующего id, негативный сценарий")
+    public void readNegativeTest() {
         Mockito.when(serviceMock.findById(anyLong())).thenThrow(new IllegalArgumentException("Invalid data"));
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {

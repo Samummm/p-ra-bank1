@@ -6,22 +6,19 @@ import com.bank.profile.dto.RegistrationDto;
 import com.bank.profile.entity.PassportEntity;
 import com.bank.profile.entity.RegistrationEntity;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
-
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
+import static org.junit.jupiter.api.Assertions.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
+@DisplayName("Тестируем методы Mapper-а PassportMapper")
 public class PassportMapperTest {
-    // TODO отрефакторить также, кака в AccountDetailsIdMapperTest
+
     private PassportMapperImpl mapperImpl = new PassportMapperImpl();
-
     private PassportMapper mapper = Mappers.getMapper(PassportMapper.class);
-
     private PassportEntity entity;
     private PassportDto dto;
 
@@ -59,62 +56,72 @@ public class PassportMapperTest {
     }
 
     @Test
-    public void testToEntity() {
+    @DisplayName("тестируем преобразование Dto в Entity")
+    public void toEntityTest() {
         PassportEntity resultEntity = mapper.toEntity(dto);
 
-        assertEquals(dto.getSeries(), resultEntity.getSeries());
-        assertEquals(dto.getNumber(), resultEntity.getNumber());
-        assertEquals(dto.getLastName(), resultEntity.getLastName());
-        assertEquals(dto.getFirstName(), resultEntity.getFirstName());
-        assertEquals(dto.getMiddleName(), resultEntity.getMiddleName());
-        assertEquals(dto.getGender(), resultEntity.getGender());
-        assertEquals(dto.getBirthDate(), resultEntity.getBirthDate());
-        assertEquals(dto.getBirthPlace(), resultEntity.getBirthPlace());
-        assertEquals(dto.getIssuedBy(), resultEntity.getIssuedBy());
-        assertEquals(dto.getDateOfIssue(), resultEntity.getDateOfIssue());
-        assertEquals(dto.getDivisionCode(), resultEntity.getDivisionCode());
-        assertEquals(dto.getExpirationDate(), resultEntity.getExpirationDate());
+        assertAll(
+                () -> assertEquals(dto.getSeries(), resultEntity.getSeries()),
+                () -> assertEquals(dto.getNumber(), resultEntity.getNumber()),
+                () -> assertEquals(dto.getLastName(), resultEntity.getLastName()),
+                () -> assertEquals(dto.getFirstName(), resultEntity.getFirstName()),
+                () -> assertEquals(dto.getMiddleName(), resultEntity.getMiddleName()),
+                () -> assertEquals(dto.getGender(), resultEntity.getGender()),
+                () -> assertEquals(dto.getBirthDate(), resultEntity.getBirthDate()),
+                () -> assertEquals(dto.getBirthPlace(), resultEntity.getBirthPlace()),
+                () -> assertEquals(dto.getIssuedBy(), resultEntity.getIssuedBy()),
+                () -> assertEquals(dto.getDateOfIssue(), resultEntity.getDateOfIssue()),
+                () -> assertEquals(dto.getDivisionCode(), resultEntity.getDivisionCode()),
+                () -> assertEquals(dto.getExpirationDate(), resultEntity.getExpirationDate())
+        );
     }
 
     @Test
-    public void testToDto() {
+    @DisplayName("тестируем преобразование Entity в Dto")
+    public void toDtoTest() {
         PassportDto resultDto = mapper.toDto(entity);
 
-        assertEquals(entity.getId(), resultDto.getId());
-        assertEquals(entity.getSeries(), resultDto.getSeries());
-        assertEquals(entity.getNumber(), resultDto.getNumber());
-        assertEquals(entity.getLastName(), resultDto.getLastName());
-        assertEquals(entity.getFirstName(), resultDto.getFirstName());
-        assertEquals(entity.getMiddleName(), resultDto.getMiddleName());
-        assertEquals(entity.getGender(), resultDto.getGender());
-        assertEquals(entity.getBirthDate(), resultDto.getBirthDate());
-        assertEquals(entity.getBirthPlace(), resultDto.getBirthPlace());
-        assertEquals(entity.getIssuedBy(), resultDto.getIssuedBy());
-        assertEquals(entity.getDateOfIssue(), resultDto.getDateOfIssue());
-        assertEquals(entity.getDivisionCode(), resultDto.getDivisionCode());
-        assertEquals(entity.getExpirationDate(), resultDto.getExpirationDate());
+        assertAll(
+                () -> assertEquals(entity.getId(), resultDto.getId()),
+                () -> assertEquals(entity.getSeries(), resultDto.getSeries()),
+                () -> assertEquals(entity.getNumber(), resultDto.getNumber()),
+                () -> assertEquals(entity.getLastName(), resultDto.getLastName()),
+                () -> assertEquals(entity.getFirstName(), resultDto.getFirstName()),
+                () -> assertEquals(entity.getMiddleName(), resultDto.getMiddleName()),
+                () -> assertEquals(entity.getGender(), resultDto.getGender()),
+                () -> assertEquals(entity.getBirthDate(), resultDto.getBirthDate()),
+                () -> assertEquals(entity.getBirthPlace(), resultDto.getBirthPlace()),
+                () -> assertEquals(entity.getIssuedBy(), resultDto.getIssuedBy()),
+                () -> assertEquals(entity.getDateOfIssue(), resultDto.getDateOfIssue()),
+                () -> assertEquals(entity.getDivisionCode(), resultDto.getDivisionCode()),
+                () -> assertEquals(entity.getExpirationDate(), resultDto.getExpirationDate())
+        );
     }
 
     @Test
-    public void testMergeToEntity() {
+    @DisplayName("тестируем обновление Entity на основе Dto")
+    public void mergeToEntityTest() {
         PassportEntity mergedEntity = mapper.mergeToEntity(dto, entity);
 
-        assertEquals(dto.getSeries(), mergedEntity.getSeries());
-        assertEquals(dto.getNumber(), mergedEntity.getNumber());
-        assertEquals(dto.getLastName(), mergedEntity.getLastName());
-        assertEquals(dto.getFirstName(), mergedEntity.getFirstName());
-        assertEquals(dto.getMiddleName(), mergedEntity.getMiddleName());
-        assertEquals(dto.getGender(), mergedEntity.getGender());
-        assertEquals(dto.getBirthDate(), mergedEntity.getBirthDate());
-        assertEquals(dto.getBirthPlace(), mergedEntity.getBirthPlace());
-        assertEquals(dto.getIssuedBy(), mergedEntity.getIssuedBy());
-        assertEquals(dto.getDateOfIssue(), mergedEntity.getDateOfIssue());
-        assertEquals(dto.getDivisionCode(), mergedEntity.getDivisionCode());
-        assertEquals(dto.getExpirationDate(), mergedEntity.getExpirationDate());
+        assertAll(
+                () -> assertEquals(dto.getSeries(), mergedEntity.getSeries()),
+                () -> assertEquals(dto.getNumber(), mergedEntity.getNumber()),
+                () -> assertEquals(dto.getLastName(), mergedEntity.getLastName()),
+                () -> assertEquals(dto.getFirstName(), mergedEntity.getFirstName()),
+                () -> assertEquals(dto.getMiddleName(), mergedEntity.getMiddleName()),
+                () -> assertEquals(dto.getGender(), mergedEntity.getGender()),
+                () -> assertEquals(dto.getBirthDate(), mergedEntity.getBirthDate()),
+                () -> assertEquals(dto.getBirthPlace(), mergedEntity.getBirthPlace()),
+                () -> assertEquals(dto.getIssuedBy(), mergedEntity.getIssuedBy()),
+                () -> assertEquals(dto.getDateOfIssue(), mergedEntity.getDateOfIssue()),
+                () -> assertEquals(dto.getDivisionCode(), mergedEntity.getDivisionCode()),
+                () -> assertEquals(dto.getExpirationDate(), mergedEntity.getExpirationDate())
+        );
     }
 
     @Test
-    public void testToDtoList() {
+    @DisplayName("тестируем преобразование списка Entity в список Dto")
+    public void toDtoListTest() {
         List<PassportEntity> entityList = Collections.singletonList(entity);
 
         List<PassportDto> dtoList = mapper.toDtoList(entityList);
@@ -122,40 +129,41 @@ public class PassportMapperTest {
         assertEquals(1, dtoList.size());
         PassportDto resultDto = dtoList.get(0);
 
-        assertEquals(entity.getId(), resultDto.getId());
-        assertEquals(entity.getSeries(), resultDto.getSeries());
-        assertEquals(entity.getNumber(), resultDto.getNumber());
-        assertEquals(entity.getLastName(), resultDto.getLastName());
-        assertEquals(entity.getFirstName(), resultDto.getFirstName());
-        assertEquals(entity.getMiddleName(), resultDto.getMiddleName());
-        assertEquals(entity.getGender(), resultDto.getGender());
-        assertEquals(entity.getBirthDate(), resultDto.getBirthDate());
-        assertEquals(entity.getBirthPlace(), resultDto.getBirthPlace());
-        assertEquals(entity.getIssuedBy(), resultDto.getIssuedBy());
-        assertEquals(entity.getDateOfIssue(), resultDto.getDateOfIssue());
-        assertEquals(entity.getDivisionCode(), resultDto.getDivisionCode());
-        assertEquals(entity.getExpirationDate(), resultDto.getExpirationDate());
+        assertAll(
+                () -> assertEquals(entity.getId(), resultDto.getId()),
+                () -> assertEquals(entity.getSeries(), resultDto.getSeries()),
+                () -> assertEquals(entity.getNumber(), resultDto.getNumber()),
+                () -> assertEquals(entity.getLastName(), resultDto.getLastName()),
+                () -> assertEquals(entity.getFirstName(), resultDto.getFirstName()),
+                () -> assertEquals(entity.getMiddleName(), resultDto.getMiddleName()),
+                () -> assertEquals(entity.getGender(), resultDto.getGender()),
+                () -> assertEquals(entity.getBirthDate(), resultDto.getBirthDate()),
+                () -> assertEquals(entity.getBirthPlace(), resultDto.getBirthPlace()),
+                () -> assertEquals(entity.getIssuedBy(), resultDto.getIssuedBy()),
+                () -> assertEquals(entity.getDateOfIssue(), resultDto.getDateOfIssue()),
+                () -> assertEquals(entity.getDivisionCode(), resultDto.getDivisionCode()),
+                () -> assertEquals(entity.getExpirationDate(), resultDto.getExpirationDate())
+        );
     }
 
-//    --------------------------------------------------------------------------
-
     @Test
-    public void testToDto_NullInput() {
-        entity = null;
-
-        PassportDto dto = mapper.toDto(entity);
+    @DisplayName("тестируем преобразование Entity в Dto, на вход подан Null")
+    public void toDtoNullTest() {
+        PassportDto dto = mapper.toDto(null);
 
         assertNull(dto);
     }
 
     @Test
-    public void testRegistrationDtoToRegistrationEntity_NullInput() {
+    @DisplayName("для Registration тестируем преобразование Dto в Entity, на вход подан Null")
+    public void toEntityRegistrationNullTest() {
         RegistrationEntity result = mapperImpl.registrationDtoToRegistrationEntity(null);
         assertNull(result);
     }
 
     @Test
-    public void testRegistrationDtoToRegistrationEntity1_NullInput() {
+    @DisplayName("для Registration тестируем обновление Entity на основе Dto, на вход подан Null")
+    public void mergeToEntityRegistrationNullTest() {
         RegistrationEntity entity = new RegistrationEntity();
         entity.setId(1L);
         entity.setCountry("Country");
@@ -171,24 +179,24 @@ public class PassportMapperTest {
 
         mapperImpl.registrationDtoToRegistrationEntity1(null, entity);
 
-        assertEquals(1L, entity.getId());
-        assertEquals("Country", entity.getCountry());
-        assertEquals("Region", entity.getRegion());
-        assertEquals("City", entity.getCity());
-        assertEquals("District", entity.getDistrict());
-        assertEquals("Locality", entity.getLocality());
-        assertEquals("Street", entity.getStreet());
-        assertEquals("321", entity.getHouseNumber());
-        assertEquals("Block", entity.getHouseBlock());
-        assertEquals("123", entity.getFlatNumber());
-        assertEquals(123456L, entity.getIndex());
+        assertAll(
+                () -> assertEquals(1L, entity.getId()),
+                () -> assertEquals("Country", entity.getCountry()),
+                () -> assertEquals("Region", entity.getRegion()),
+                () -> assertEquals("City", entity.getCity()),
+                () -> assertEquals("District", entity.getDistrict()),
+                () -> assertEquals("Locality", entity.getLocality()),
+                () -> assertEquals("Street", entity.getStreet()),
+                () -> assertEquals("321", entity.getHouseNumber()),
+                () -> assertEquals("Block", entity.getHouseBlock()),
+                () -> assertEquals("123", entity.getFlatNumber()),
+                () -> assertEquals(123456L, entity.getIndex())
+        );
     }
 
-
-//    ---------------------------------------------------------------------------
-
     @Test
-    public void testRegistrationDtoToRegistrationEntity() {
+    @DisplayName("для Registration тестируем преобразование Dto в Entity")
+    public void toEntityRegistrationTest() {
         RegistrationDto dto = new RegistrationDto();
         dto.setId(1L);
         dto.setCountry("Country");
@@ -204,21 +212,24 @@ public class PassportMapperTest {
 
         RegistrationEntity result = mapperImpl.registrationDtoToRegistrationEntity(dto);
 
-        assertEquals(dto.getId(), result.getId());
-        assertEquals(dto.getCountry(), result.getCountry());
-        assertEquals(dto.getRegion(), result.getRegion());
-        assertEquals(dto.getCity(), result.getCity());
-        assertEquals(dto.getDistrict(), result.getDistrict());
-        assertEquals(dto.getLocality(), result.getLocality());
-        assertEquals(dto.getStreet(), result.getStreet());
-        assertEquals(dto.getHouseNumber(), result.getHouseNumber());
-        assertEquals(dto.getHouseBlock(), result.getHouseBlock());
-        assertEquals(dto.getFlatNumber(), result.getFlatNumber());
-        assertEquals(dto.getIndex(), result.getIndex());
+        assertAll(
+                () -> assertEquals(dto.getId(), result.getId()),
+                () -> assertEquals(dto.getCountry(), result.getCountry()),
+                () -> assertEquals(dto.getRegion(), result.getRegion()),
+                () -> assertEquals(dto.getCity(), result.getCity()),
+                () -> assertEquals(dto.getDistrict(), result.getDistrict()),
+                () -> assertEquals(dto.getLocality(), result.getLocality()),
+                () -> assertEquals(dto.getStreet(), result.getStreet()),
+                () -> assertEquals(dto.getHouseNumber(), result.getHouseNumber()),
+                () -> assertEquals(dto.getHouseBlock(), result.getHouseBlock()),
+                () -> assertEquals(dto.getFlatNumber(), result.getFlatNumber()),
+                () -> assertEquals(dto.getIndex(), result.getIndex())
+        );
     }
 
     @Test
-    public void testRegistrationDtoToRegistrationEntity1() {
+    @DisplayName("для Registration тестируем обновление Entity на основе Dto")
+    public void mergeToEntityRegistrationTest() {
         RegistrationDto dto = new RegistrationDto();
         dto.setId(2L);
         dto.setCountry("Country2");
@@ -247,16 +258,18 @@ public class PassportMapperTest {
 
         mapperImpl.registrationDtoToRegistrationEntity1(dto, entity);
 
-        assertEquals(dto.getId(), entity.getId());
-        assertEquals(dto.getCountry(), entity.getCountry());
-        assertEquals(dto.getRegion(), entity.getRegion());
-        assertEquals(dto.getCity(), entity.getCity());
-        assertEquals(dto.getDistrict(), entity.getDistrict());
-        assertEquals(dto.getLocality(), entity.getLocality());
-        assertEquals(dto.getStreet(), entity.getStreet());
-        assertEquals(dto.getHouseNumber(), entity.getHouseNumber());
-        assertEquals(dto.getHouseBlock(), entity.getHouseBlock());
-        assertEquals(dto.getFlatNumber(), entity.getFlatNumber());
-        assertEquals(dto.getIndex(), entity.getIndex());
+        assertAll(
+                () -> assertEquals(dto.getId(), entity.getId()),
+                () -> assertEquals(dto.getCountry(), entity.getCountry()),
+                () -> assertEquals(dto.getRegion(), entity.getRegion()),
+                () -> assertEquals(dto.getCity(), entity.getCity()),
+                () -> assertEquals(dto.getDistrict(), entity.getDistrict()),
+                () -> assertEquals(dto.getLocality(), entity.getLocality()),
+                () -> assertEquals(dto.getStreet(), entity.getStreet()),
+                () -> assertEquals(dto.getHouseNumber(), entity.getHouseNumber()),
+                () -> assertEquals(dto.getHouseBlock(), entity.getHouseBlock()),
+                () -> assertEquals(dto.getFlatNumber(), entity.getFlatNumber()),
+                () -> assertEquals(dto.getIndex(), entity.getIndex())
+        );
     }
 }

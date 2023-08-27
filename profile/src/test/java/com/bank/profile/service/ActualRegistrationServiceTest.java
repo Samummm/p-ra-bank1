@@ -2,27 +2,25 @@ package com.bank.profile.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-
 import com.bank.profile.dto.ActualRegistrationDto;
 import com.bank.profile.entity.ActualRegistrationEntity;
 import com.bank.profile.mapper.ActualRegistrationMapper;
 import com.bank.profile.repository.ActualRegistrationRepository;
 import com.bank.profile.service.impl.ActualRegistrationServiceImp;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
 import javax.persistence.EntityNotFoundException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+@DisplayName("Тестируем методы сервиса ActualRegistrationService")
 public class ActualRegistrationServiceTest {
-    // TODO отрефакторить также, как в AccountDetailsIdServiceTest
 
     private ActualRegistrationRepository repository;
     private ActualRegistrationMapper mapper;
     private ActualRegistrationService service;
-
     private ActualRegistrationDto dto;
     private ActualRegistrationEntity entity;
 
@@ -57,36 +55,38 @@ public class ActualRegistrationServiceTest {
         entity.setHouseBlock("Block A");
         entity.setFlatNumber("456");
         entity.setIndex(123456L);
-
     }
 
     @Test
-    public void testFindById_ValidId() {
+    @DisplayName("поиск по id, позитивный сценарий")
+    public void findByIdPositiveTest() {
         when(repository.findById(1L)).thenReturn(Optional.of(entity));
         when(mapper.toDto(entity)).thenReturn(dto);
 
         ActualRegistrationDto result = service.findById(1L);
 
-        // TODO можно объединить в AssertAll, чтобы видеть какие ассерты падают и какие отрабатывают
-        assertNotNull(result);
-        assertEquals(dto.getId(), result.getId());
-        assertEquals(dto.getCountry(), result.getCountry());
-        assertEquals(dto.getRegion(), result.getRegion());
-        assertEquals(dto.getCity(), result.getCity());
-        assertEquals(dto.getDistrict(), result.getDistrict());
-        assertEquals(dto.getLocality(), result.getLocality());
-        assertEquals(dto.getStreet(), result.getStreet());
-        assertEquals(dto.getHouseNumber(), result.getHouseNumber());
-        assertEquals(dto.getHouseBlock(), result.getHouseBlock());
-        assertEquals(dto.getFlatNumber(), result.getFlatNumber());
-        assertEquals(dto.getIndex(), result.getIndex());
-
         verify(repository, times(1)).findById(1L);
         verify(mapper, times(1)).toDto(entity);
+
+        assertAll(
+                () -> assertNotNull(result),
+                () -> assertEquals(dto.getId(), result.getId()),
+                () -> assertEquals(dto.getCountry(), result.getCountry()),
+                () -> assertEquals(dto.getRegion(), result.getRegion()),
+                () -> assertEquals(dto.getCity(), result.getCity()),
+                () -> assertEquals(dto.getDistrict(), result.getDistrict()),
+                () -> assertEquals(dto.getLocality(), result.getLocality()),
+                () -> assertEquals(dto.getStreet(), result.getStreet()),
+                () -> assertEquals(dto.getHouseNumber(), result.getHouseNumber()),
+                () -> assertEquals(dto.getHouseBlock(), result.getHouseBlock()),
+                () -> assertEquals(dto.getFlatNumber(), result.getFlatNumber()),
+                () -> assertEquals(dto.getIndex(), result.getIndex())
+        );
     }
 
     @Test
-    public void testFindById_InvalidId() {
+    @DisplayName("поиск по несуществующему id, негативный сценарий")
+    public void findByIdNegativeTest() {
         when(repository.findById(anyLong())).thenReturn(Optional.empty());
 
         assertThrows(EntityNotFoundException.class, () -> service.findById(1L));
@@ -95,31 +95,34 @@ public class ActualRegistrationServiceTest {
     }
 
     @Test
-    public void testSave() {
+    @DisplayName("сохранение, позитивный сценарий")
+    public void savePositiveTest() {
         when(repository.save(any())).thenReturn(entity);
         when(mapper.toDto(entity)).thenReturn(dto);
 
         ActualRegistrationDto result = service.save(dto);
 
-        // TODO можно объединить в AssertAll, чтобы видеть какие ассерты падают и какие отрабатывают
-        assertNotNull(result);
-        assertEquals(dto.getId(), result.getId());
-        assertEquals(dto.getCountry(), result.getCountry());
-        assertEquals(dto.getRegion(), result.getRegion());
-        assertEquals(dto.getCity(), result.getCity());
-        assertEquals(dto.getDistrict(), result.getDistrict());
-        assertEquals(dto.getLocality(), result.getLocality());
-        assertEquals(dto.getStreet(), result.getStreet());
-        assertEquals(dto.getHouseNumber(), result.getHouseNumber());
-        assertEquals(dto.getHouseBlock(), result.getHouseBlock());
-        assertEquals(dto.getFlatNumber(), result.getFlatNumber());
-        assertEquals(dto.getIndex(), result.getIndex());
-
         verify(mapper, times(1)).toDto(entity);
+
+        assertAll(
+                () -> assertNotNull(result),
+                () -> assertEquals(dto.getId(), result.getId()),
+                () -> assertEquals(dto.getCountry(), result.getCountry()),
+                () -> assertEquals(dto.getRegion(), result.getRegion()),
+                () -> assertEquals(dto.getCity(), result.getCity()),
+                () -> assertEquals(dto.getDistrict(), result.getDistrict()),
+                () -> assertEquals(dto.getLocality(), result.getLocality()),
+                () -> assertEquals(dto.getStreet(), result.getStreet()),
+                () -> assertEquals(dto.getHouseNumber(), result.getHouseNumber()),
+                () -> assertEquals(dto.getHouseBlock(), result.getHouseBlock()),
+                () -> assertEquals(dto.getFlatNumber(), result.getFlatNumber()),
+                () -> assertEquals(dto.getIndex(), result.getIndex())
+        );
     }
 
     @Test
-    public void testUpdate() {
+    @DisplayName("обновление, позитивный сценарий")
+    public void updatePositiveTest() {
         when(repository.findById(1L)).thenReturn(Optional.of(entity));
         when(repository.save(any(ActualRegistrationEntity.class))).thenReturn(entity);
         when(mapper.mergeToEntity(any(ActualRegistrationDto.class), any(ActualRegistrationEntity.class)))
@@ -128,28 +131,30 @@ public class ActualRegistrationServiceTest {
 
         ActualRegistrationDto result = service.update(1L, dto);
 
-        // TODO можно объединить в AssertAll, чтобы видеть какие ассерты падают и какие отрабатывают
-        assertNotNull(result);
-        assertEquals(dto.getId(), result.getId());
-        assertEquals(dto.getCountry(), result.getCountry());
-        assertEquals(dto.getRegion(), result.getRegion());
-        assertEquals(dto.getCity(), result.getCity());
-        assertEquals(dto.getDistrict(), result.getDistrict());
-        assertEquals(dto.getLocality(), result.getLocality());
-        assertEquals(dto.getStreet(), result.getStreet());
-        assertEquals(dto.getHouseNumber(), result.getHouseNumber());
-        assertEquals(dto.getHouseBlock(), result.getHouseBlock());
-        assertEquals(dto.getFlatNumber(), result.getFlatNumber());
-        assertEquals(dto.getIndex(), result.getIndex());
-
         verify(repository, times(1)).findById(1L);
         verify(repository, times(1)).save(entity);
         verify(mapper, times(1)).mergeToEntity(dto, entity);
         verify(mapper, times(1)).toDto(entity);
+
+        assertAll(
+                () -> assertNotNull(result),
+                () -> assertEquals(dto.getId(), result.getId()),
+                () -> assertEquals(dto.getCountry(), result.getCountry()),
+                () -> assertEquals(dto.getRegion(), result.getRegion()),
+                () -> assertEquals(dto.getCity(), result.getCity()),
+                () -> assertEquals(dto.getDistrict(), result.getDistrict()),
+                () -> assertEquals(dto.getLocality(), result.getLocality()),
+                () -> assertEquals(dto.getStreet(), result.getStreet()),
+                () -> assertEquals(dto.getHouseNumber(), result.getHouseNumber()),
+                () -> assertEquals(dto.getHouseBlock(), result.getHouseBlock()),
+                () -> assertEquals(dto.getFlatNumber(), result.getFlatNumber()),
+                () -> assertEquals(dto.getIndex(), result.getIndex())
+        );
     }
 
     @Test
-    public void testFindAllById() {
+    @DisplayName("поиск по нескольким id, позитивный сценарий")
+    public void findAllByIdPositiveTest() {
         List<ActualRegistrationEntity> entities = Collections.singletonList(entity);
         when(repository.findAllById(anyList())).thenReturn(entities);
         when(mapper.toDtoList(entities)).thenReturn(Collections.singletonList(dto));
@@ -160,20 +165,22 @@ public class ActualRegistrationServiceTest {
         assertEquals(1, result.size());
 
         ActualRegistrationDto actualRegistrationDto = result.get(0);
-        // TODO можно объединить в AssertAll, чтобы видеть какие ассерты падают и какие отрабатывают
-        assertEquals(dto.getId(), actualRegistrationDto.getId());
-        assertEquals(dto.getCountry(), actualRegistrationDto.getCountry());
-        assertEquals(dto.getRegion(), actualRegistrationDto.getRegion());
-        assertEquals(dto.getCity(), actualRegistrationDto.getCity());
-        assertEquals(dto.getDistrict(), actualRegistrationDto.getDistrict());
-        assertEquals(dto.getLocality(), actualRegistrationDto.getLocality());
-        assertEquals(dto.getStreet(), actualRegistrationDto.getStreet());
-        assertEquals(dto.getHouseNumber(), actualRegistrationDto.getHouseNumber());
-        assertEquals(dto.getHouseBlock(), actualRegistrationDto.getHouseBlock());
-        assertEquals(dto.getFlatNumber(), actualRegistrationDto.getFlatNumber());
-        assertEquals(dto.getIndex(), actualRegistrationDto.getIndex());
 
         verify(repository, times(1)).findAllById(Collections.singletonList(1L));
         verify(mapper, times(1)).toDtoList(entities);
+
+        assertAll(
+                () -> assertEquals(dto.getId(), actualRegistrationDto.getId()),
+                () -> assertEquals(dto.getCountry(), actualRegistrationDto.getCountry()),
+                () -> assertEquals(dto.getRegion(), actualRegistrationDto.getRegion()),
+                () -> assertEquals(dto.getCity(), actualRegistrationDto.getCity()),
+                () -> assertEquals(dto.getDistrict(), actualRegistrationDto.getDistrict()),
+                () -> assertEquals(dto.getLocality(), actualRegistrationDto.getLocality()),
+                () -> assertEquals(dto.getStreet(), actualRegistrationDto.getStreet()),
+                () -> assertEquals(dto.getHouseNumber(), actualRegistrationDto.getHouseNumber()),
+                () -> assertEquals(dto.getHouseBlock(), actualRegistrationDto.getHouseBlock()),
+                () -> assertEquals(dto.getFlatNumber(), actualRegistrationDto.getFlatNumber()),
+                () -> assertEquals(dto.getIndex(), actualRegistrationDto.getIndex())
+        );
     }
 }

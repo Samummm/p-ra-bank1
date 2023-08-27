@@ -3,18 +3,18 @@ package com.bank.profile.controller;
 import com.bank.profile.dto.ActualRegistrationDto;
 import com.bank.profile.service.ActualRegistrationService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
 import java.util.Collections;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.*;
-// TODO отрефакторить также, как в AccountDetailsIdControllerTest
+
+@DisplayName("Тестируем методы контроллера ActualRegistrationController")
 public class ActualRegistrationControllerTest {
 
     private ActualRegistrationDto mockDto;
@@ -41,7 +41,8 @@ public class ActualRegistrationControllerTest {
     }
 
     @Test
-    public void testRead() {
+    @DisplayName("поиск по id, позитивный сценарий")
+    public void readPositiveTest() {
         Mockito.when(serviceMock.findById(anyLong())).thenReturn(mockDto);
 
         ResponseEntity<ActualRegistrationDto> response = controller.read(1L);
@@ -51,7 +52,8 @@ public class ActualRegistrationControllerTest {
     }
 
     @Test
-    public void testCreate() {
+    @DisplayName("создание аккаунта, позитивный сценарий")
+    public void createPositiveTest() {
         Mockito.when(serviceMock.save(any(ActualRegistrationDto.class))).thenReturn(mockDto);
 
         ResponseEntity<ActualRegistrationDto> response = controller.create(mockDto);
@@ -61,7 +63,8 @@ public class ActualRegistrationControllerTest {
     }
 
     @Test
-    public void testUpdate() {
+    @DisplayName("обновление аккаунта, позитивный сценарий")
+    public void updatePositiveTest() {
         Mockito.when(serviceMock.update(anyLong(), any(ActualRegistrationDto.class))).thenReturn(mockDto);
 
         ResponseEntity<ActualRegistrationDto> response = controller.update(1L, mockDto);
@@ -71,7 +74,8 @@ public class ActualRegistrationControllerTest {
     }
 
     @Test
-    public void testReadAllById() {
+    @DisplayName("поиск по нескольким id, позитивный сценарий")
+    public void readAllByIdPositiveTest() {
         List<ActualRegistrationDto> mockDtoList = Collections.singletonList(mockDto);
         Mockito.when(serviceMock.findAllById(anyList())).thenReturn(mockDtoList);
 
@@ -82,7 +86,8 @@ public class ActualRegistrationControllerTest {
     }
 
     @Test
-    public void testRead_InvalidData() {
+    @DisplayName("ошибка несуществующего id, негативный сценарий")
+    public void readNegativeTest() {
         Mockito.when(serviceMock.findById(anyLong())).thenThrow(new IllegalArgumentException("Invalid data"));
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {

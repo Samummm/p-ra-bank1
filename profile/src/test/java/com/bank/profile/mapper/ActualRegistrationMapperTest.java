@@ -4,19 +4,17 @@ package com.bank.profile.mapper;
 import com.bank.profile.dto.ActualRegistrationDto;
 import com.bank.profile.entity.ActualRegistrationEntity;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
-
 import java.util.Collections;
 import java.util.List;
+import static org.junit.jupiter.api.Assertions.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
+@DisplayName("Тестируем методы Mapper-а ActualRegistrationMapper")
 public class ActualRegistrationMapperTest {
-    // TODO отрефакторить также, кака в AccountDetailsIdMapperTest
-    private ActualRegistrationMapper mapper = Mappers.getMapper(ActualRegistrationMapper.class);
 
+    private ActualRegistrationMapper mapper = Mappers.getMapper(ActualRegistrationMapper.class);
     private ActualRegistrationEntity entity;
     private ActualRegistrationDto dto;
 
@@ -50,56 +48,66 @@ public class ActualRegistrationMapperTest {
     }
 
     @Test
-    public void testToEntity() {
+    @DisplayName("тестируем преобразование Dto в Entity")
+    public void toEntityTest() {
         ActualRegistrationEntity resultEntity = mapper.toEntity(dto);
 
-        assertEquals(dto.getCountry(), resultEntity.getCountry());
-        assertEquals(dto.getRegion(), resultEntity.getRegion());
-        assertEquals(dto.getCity(), resultEntity.getCity());
-        assertEquals(dto.getDistrict(), resultEntity.getDistrict());
-        assertEquals(dto.getLocality(), resultEntity.getLocality());
-        assertEquals(dto.getStreet(), resultEntity.getStreet());
-        assertEquals(dto.getHouseNumber(), resultEntity.getHouseNumber());
-        assertEquals(dto.getHouseBlock(), resultEntity.getHouseBlock());
-        assertEquals(dto.getFlatNumber(), resultEntity.getFlatNumber());
-        assertEquals(dto.getIndex(), resultEntity.getIndex());
+        assertAll(
+                () -> assertEquals(dto.getCountry(), resultEntity.getCountry()),
+                () -> assertEquals(dto.getRegion(), resultEntity.getRegion()),
+                () -> assertEquals(dto.getCity(), resultEntity.getCity()),
+                () -> assertEquals(dto.getDistrict(), resultEntity.getDistrict()),
+                () -> assertEquals(dto.getLocality(), resultEntity.getLocality()),
+                () -> assertEquals(dto.getStreet(), resultEntity.getStreet()),
+                () -> assertEquals(dto.getHouseNumber(), resultEntity.getHouseNumber()),
+                () -> assertEquals(dto.getHouseBlock(), resultEntity.getHouseBlock()),
+                () -> assertEquals(dto.getFlatNumber(), resultEntity.getFlatNumber()),
+                () -> assertEquals(dto.getIndex(), resultEntity.getIndex())
+        );
     }
 
     @Test
-    public void testToDto() {
+    @DisplayName("тестируем преобразование Entity в Dto")
+    public void toDtoTest() {
         ActualRegistrationDto resultDto = mapper.toDto(entity);
 
-        assertEquals(entity.getId(), resultDto.getId());
-        assertEquals(entity.getCountry(), resultDto.getCountry());
-        assertEquals(entity.getRegion(), resultDto.getRegion());
-        assertEquals(entity.getCity(), resultDto.getCity());
-        assertEquals(entity.getDistrict(), resultDto.getDistrict());
-        assertEquals(entity.getLocality(), resultDto.getLocality());
-        assertEquals(entity.getStreet(), resultDto.getStreet());
-        assertEquals(entity.getHouseNumber(), resultDto.getHouseNumber());
-        assertEquals(entity.getHouseBlock(), resultDto.getHouseBlock());
-        assertEquals(entity.getFlatNumber(), resultDto.getFlatNumber());
-        assertEquals(entity.getIndex(), resultDto.getIndex());
+        assertAll(
+                () -> assertEquals(entity.getId(), resultDto.getId()),
+                () -> assertEquals(entity.getCountry(), resultDto.getCountry()),
+                () -> assertEquals(entity.getRegion(), resultDto.getRegion()),
+                () -> assertEquals(entity.getCity(), resultDto.getCity()),
+                () -> assertEquals(entity.getDistrict(), resultDto.getDistrict()),
+                () -> assertEquals(entity.getLocality(), resultDto.getLocality()),
+                () -> assertEquals(entity.getStreet(), resultDto.getStreet()),
+                () -> assertEquals(entity.getHouseNumber(), resultDto.getHouseNumber()),
+                () -> assertEquals(entity.getHouseBlock(), resultDto.getHouseBlock()),
+                () -> assertEquals(entity.getFlatNumber(), resultDto.getFlatNumber()),
+                () -> assertEquals(entity.getIndex(), resultDto.getIndex())
+        );
     }
 
     @Test
-    public void testMergeToEntity() {
+    @DisplayName("тестируем обновление Entity на основе Dto")
+    public void mergeToEntityTest() {
         ActualRegistrationEntity mergedEntity = mapper.mergeToEntity(dto, entity);
 
-        assertEquals(dto.getCountry(), mergedEntity.getCountry());
-        assertEquals(dto.getRegion(), mergedEntity.getRegion());
-        assertEquals(dto.getCity(), mergedEntity.getCity());
-        assertEquals(dto.getDistrict(), mergedEntity.getDistrict());
-        assertEquals(dto.getLocality(), mergedEntity.getLocality());
-        assertEquals(dto.getStreet(), mergedEntity.getStreet());
-        assertEquals(dto.getHouseNumber(), mergedEntity.getHouseNumber());
-        assertEquals(dto.getHouseBlock(), mergedEntity.getHouseBlock());
-        assertEquals(dto.getFlatNumber(), mergedEntity.getFlatNumber());
-        assertEquals(dto.getIndex(), mergedEntity.getIndex());
+        assertAll(
+                () -> assertEquals(dto.getCountry(), mergedEntity.getCountry()),
+                () -> assertEquals(dto.getRegion(), mergedEntity.getRegion()),
+                () -> assertEquals(dto.getCity(), mergedEntity.getCity()),
+                () -> assertEquals(dto.getDistrict(), mergedEntity.getDistrict()),
+                () -> assertEquals(dto.getLocality(), mergedEntity.getLocality()),
+                () -> assertEquals(dto.getStreet(), mergedEntity.getStreet()),
+                () -> assertEquals(dto.getHouseNumber(), mergedEntity.getHouseNumber()),
+                () -> assertEquals(dto.getHouseBlock(), mergedEntity.getHouseBlock()),
+                () -> assertEquals(dto.getFlatNumber(), mergedEntity.getFlatNumber()),
+                () -> assertEquals(dto.getIndex(), mergedEntity.getIndex())
+        );
     }
 
     @Test
-    public void testToDtoList() {
+    @DisplayName("тестируем преобразование списка Entity в список Dto")
+    public void toDtoListTest() {
         List<ActualRegistrationEntity> entityList = Collections.singletonList(entity);
 
         List<ActualRegistrationDto> dtoList = mapper.toDtoList(entityList);
@@ -107,27 +115,27 @@ public class ActualRegistrationMapperTest {
         assertEquals(1, dtoList.size());
         ActualRegistrationDto resultDto = dtoList.get(0);
 
-        assertEquals(entity.getId(), resultDto.getId());
-        assertEquals(entity.getCountry(), resultDto.getCountry());
-        assertEquals(entity.getRegion(), resultDto.getRegion());
-        assertEquals(entity.getCity(), resultDto.getCity());
-        assertEquals(entity.getDistrict(), resultDto.getDistrict());
-        assertEquals(entity.getLocality(), resultDto.getLocality());
-        assertEquals(entity.getStreet(), resultDto.getStreet());
-        assertEquals(entity.getHouseNumber(), resultDto.getHouseNumber());
-        assertEquals(entity.getHouseBlock(), resultDto.getHouseBlock());
-        assertEquals(entity.getFlatNumber(), resultDto.getFlatNumber());
-        assertEquals(entity.getIndex(), resultDto.getIndex());
+        assertAll(
+                () -> assertEquals(entity.getId(), resultDto.getId()),
+                () -> assertEquals(entity.getCountry(), resultDto.getCountry()),
+                () -> assertEquals(entity.getRegion(), resultDto.getRegion()),
+                () -> assertEquals(entity.getCity(), resultDto.getCity()),
+                () -> assertEquals(entity.getDistrict(), resultDto.getDistrict()),
+                () -> assertEquals(entity.getLocality(), resultDto.getLocality()),
+                () -> assertEquals(entity.getStreet(), resultDto.getStreet()),
+                () -> assertEquals(entity.getHouseNumber(), resultDto.getHouseNumber()),
+                () -> assertEquals(entity.getHouseBlock(), resultDto.getHouseBlock()),
+                () -> assertEquals(entity.getFlatNumber(), resultDto.getFlatNumber()),
+                () -> assertEquals(entity.getIndex(), resultDto.getIndex())
+        );
     }
 
     @Test
-    public void testToDto_NullInput() {
-        entity = null;
-
-        ActualRegistrationDto dto = mapper.toDto(entity);
+    @DisplayName("тестируем преобразование Entity в Dto, на вход подан Null")
+    public void toDtoNullTest() {
+        ActualRegistrationDto dto = mapper.toDto(null);
 
         assertNull(dto);
     }
-
 }
 

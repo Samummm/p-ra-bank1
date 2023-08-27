@@ -1,30 +1,21 @@
 package com.bank.profile.mapper;
-// TODO разверни импорты
+
 import com.bank.profile.dto.*;
 import com.bank.profile.entity.*;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
-
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
+@DisplayName("Тестируем методы Mapper-а AccountDetailsIdMapper")
 public class AccountDetailsIdMapperTest {
 
-    // TODO добавь @DisplayName с понятным описанием теста на русском по типу:
-    //  "маппинг в дто", "маппинг в дто, на вход подан null",
-    // "слияние в энтити", "слияние в энтити, на вход подан null"
-    // TODO также необходимо переименовать тесты следующим образом:
-    // тестируемый метод + описание + Test.
-    // Например, toEntityTest; noEntityNullTest; mergeToEntityTest, mergeToEntityNullTest
-
     private AccountDetailsIdMapperImpl mapperImpl = new AccountDetailsIdMapperImpl();
-
     private AccountDetailsIdMapper mapper = Mappers.getMapper(AccountDetailsIdMapper.class);
-
     private AccountDetailsIdEntity entity;
     private AccountDetailsIdDto dto;
 
@@ -40,7 +31,8 @@ public class AccountDetailsIdMapperTest {
     }
 
     @Test
-    public void testToDto() {
+    @DisplayName("тестируем преобразование Entity в Dto")
+    public void toDtoTest() {
         AccountDetailsIdDto dto = mapper.toDto(entity);
 
         assertNotNull(dto);
@@ -49,7 +41,8 @@ public class AccountDetailsIdMapperTest {
     }
 
     @Test
-    public void testToEntity() {
+    @DisplayName("тестируем преобразование Dto в Entity")
+    public void toEntityTest() {
         AccountDetailsIdEntity entity = mapper.toEntity(dto);
 
         assertNotNull(entity);
@@ -57,7 +50,8 @@ public class AccountDetailsIdMapperTest {
     }
 
     @Test
-    public void testMergeToEntity() {
+    @DisplayName("тестируем обновление Entity на основе Dto")
+    public void mergeToEntityTest() {
         AccountDetailsIdEntity mergedEntity = mapper.mergeToEntity(dto, entity);
 
         assertNotNull(mergedEntity);
@@ -65,34 +59,39 @@ public class AccountDetailsIdMapperTest {
     }
 
     @Test
-    public void testToDtoList() {
+    @DisplayName("тестируем преобразование списка Entity в список Dto")
+    public void toDtoListTest() {
         List<AccountDetailsIdEntity> entityList = Collections.singletonList(entity);
 
         List<AccountDetailsIdDto> dtoList = mapper.toDtoList(entityList);
 
         assertNotNull(dtoList);
-        // TODO можно объединить в AssertAll
-        assertEquals(1, dtoList.size());
-        assertEquals(1L, dtoList.get(0).getId());
-        assertEquals(1L, dtoList.get(0).getAccountId());
+        assertAll(
+                () -> assertEquals(1, dtoList.size()),
+                () -> assertEquals(1L, dtoList.get(0).getId()),
+                () -> assertEquals(1L, dtoList.get(0).getAccountId())
+        );
     }
 
     @Test
-    public void testToDto_NullInput() {
+    @DisplayName("тестируем преобразование Entity в Dto, на вход подан Null")
+    public void toDtoNullTest() {
         AccountDetailsIdDto dto = mapper.toDto(null);
 
         assertNull(dto);
     }
 
     @Test
-    public void testToEntity_NullInput() {
+    @DisplayName("тестируем преобразование Dto в Entity, на вход подан Null")
+    public void toEntityNullTest() {
         AccountDetailsIdEntity entity = mapper.toEntity(null);
 
         assertNull(entity);
     }
 
     @Test
-    public void testMergeToEntity_NullInput() {
+    @DisplayName("тестируем обновление Entity на основе Dto, на вход подан Null")
+    public void mergeToEntityNullTest() {
         AccountDetailsIdEntity mergedEntity = mapper.mergeToEntity(null, entity);
 
         assertNotNull(mergedEntity);
@@ -100,99 +99,112 @@ public class AccountDetailsIdMapperTest {
     }
 
     @Test
-    public void testToDtoList_NullInput() {
+    @DisplayName("тестируем преобразование списка Entity в список Dto, на вход подан Null")
+    public void toDtoListNullTest() {
         List<AccountDetailsIdDto> dtoList = mapper.toDtoList(null);
 
         assertNull(dtoList);
     }
-    // TODO удаляй ненужные комментарии
-    // -----------------------------------------------------------------------------------------------
+
     @Test
-    public void testRegistrationDtoToRegistrationEntity_NullInput() {
+    @DisplayName("для Registration тестируем преобразование Dto в Entity, на вход подан Null")
+    public void toEntityRegistrationNullTest() {
         assertNull(mapperImpl.registrationDtoToRegistrationEntity(null));
     }
 
     @Test
-    public void testPassportDtoToPassportEntity_NullInput() {
+    @DisplayName("для Passport тестируем преобразование Dto в Entity, на вход подан Null")
+    public void toEntityPassportNullTest() {
         assertNull(mapperImpl.passportDtoToPassportEntity(null));
     }
 
     @Test
-    public void testActualRegistrationDtoToActualRegistrationEntity_NullInput() {
+    @DisplayName("для ActualRegistration тестируем преобразование Dto в Entity, на вход подан Null")
+    public void toEntityActualRegistrationNullTest() {
         assertNull(mapperImpl.actualRegistrationDtoToActualRegistrationEntity(null));
     }
 
     @Test
-    public void testProfileDtoToProfileEntity_NullInput() {
+    @DisplayName("для Profile тестируем преобразование Dto в Entity, на вход подан Null")
+    public void toEntityProfileNullTest() {
         assertNull(mapperImpl.profileDtoToProfileEntity(null));
     }
 
     @Test
-    public void testRegistrationEntityToRegistrationDto_NullInput() {
+    @DisplayName("для Registration тестируем преобразование Entity в Dto, на вход подан Null")
+    public void toDtoRegistrationNullTest() {
         assertNull(mapperImpl.registrationEntityToRegistrationDto(null));
     }
 
     @Test
-    public void testPassportEntityToPassportDto_NullInput() {
+    @DisplayName("для Passport тестируем преобразование Entity в Dto, на вход подан Null")
+    public void toDtoPassportNullTest() {
         assertNull(mapperImpl.passportEntityToPassportDto(null));
     }
 
     @Test
-    public void testActualRegistrationEntityToActualRegistrationDto_NullInput() {
+    @DisplayName("для ActualRegistration тестируем преобразование Entity в Dto, на вход подан Null")
+    public void toDtoActualRegistrationNullTest() {
         ActualRegistrationDto result = mapperImpl.actualRegistrationEntityToActualRegistrationDto(null);
         assertNull(result);
     }
 
     @Test
-    public void testProfileEntityToProfileDto_NullInput() {
+    @DisplayName("для Profile тестируем преобразование Entity в Dto, на вход подан Null")
+    public void toDtoProfileNullTest() {
         ProfileDto result = mapperImpl.profileEntityToProfileDto(null);
         assertNull(result);
     }
 
     @Test
-    public void testRegistrationDtoToRegistrationEntity1_NullInput() {
-        RegistrationEntity mappingTarget = new RegistrationEntity();
-        mapperImpl.registrationDtoToRegistrationEntity1(null, mappingTarget);
+    @DisplayName("для Registration тестируем обновление Entity на основе Dto, на вход подан Null")
+    public void mergeToEntityRegistrationNullTest() {
+        RegistrationEntity target = new RegistrationEntity();
+        mapperImpl.registrationDtoToRegistrationEntity1(null, target);
 
-        // TODO можно объединить в AssertAll, чтобы видеть какие ассерты падают и какие отрабатывают
-        assertNull(mappingTarget.getId());
-        assertNull(mappingTarget.getCountry());
-        assertNull(mappingTarget.getRegion());
-        assertNull(mappingTarget.getCity());
-        assertNull(mappingTarget.getDistrict());
-        assertNull(mappingTarget.getLocality());
-        assertNull(mappingTarget.getStreet());
-        assertNull(mappingTarget.getHouseNumber());
-        assertNull(mappingTarget.getHouseBlock());
-        assertNull(mappingTarget.getFlatNumber());
-        assertNull(mappingTarget.getIndex());
+        assertAll(
+                () -> assertNull(target.getId()),
+                () -> assertNull(target.getCountry()),
+                () -> assertNull(target.getRegion()),
+                () -> assertNull(target.getCity()),
+                () -> assertNull(target.getDistrict()),
+                () -> assertNull(target.getLocality()),
+                () -> assertNull(target.getStreet()),
+                () -> assertNull(target.getHouseNumber()),
+                () -> assertNull(target.getHouseBlock()),
+                () -> assertNull(target.getFlatNumber()),
+                () -> assertNull(target.getIndex())
+        );
     }
 
     @Test
-    public void testPassportDtoToPassportEntity1_NullInput() {
+    @DisplayName("для Passport тестируем обновление Entity на основе Dto, на вход подан Null")
+    public void mergeToEntityPassportNullTest() {
         PassportEntity mappingTarget = new PassportEntity();
         mapperImpl.passportDtoToPassportEntity1(null, mappingTarget);
 
         // TODO можно объединить в AssertAll, чтобы видеть какие ассерты падают и какие отрабатывают
-        assertNull(mappingTarget.getId());
-        assertNull(mappingTarget.getSeries());
-        assertNull(mappingTarget.getNumber());
-        assertNull(mappingTarget.getLastName());
-        assertNull(mappingTarget.getFirstName());
-        assertNull(mappingTarget.getMiddleName());
-        assertNull(mappingTarget.getGender());
-        assertNull(mappingTarget.getBirthDate());
-        assertNull(mappingTarget.getBirthPlace());
-        assertNull(mappingTarget.getIssuedBy());
-        assertNull(mappingTarget.getDateOfIssue());
-        assertNull(mappingTarget.getDivisionCode());
-        assertNull(mappingTarget.getExpirationDate());
-        assertNull(mappingTarget.getRegistration());
+        assertAll(
+                () -> assertNull(mappingTarget.getId()),
+                () -> assertNull(mappingTarget.getSeries()),
+                () -> assertNull(mappingTarget.getNumber()),
+                () -> assertNull(mappingTarget.getLastName()),
+                () -> assertNull(mappingTarget.getFirstName()),
+                () -> assertNull(mappingTarget.getMiddleName()),
+                () -> assertNull(mappingTarget.getGender()),
+                () -> assertNull(mappingTarget.getBirthDate()),
+                () -> assertNull(mappingTarget.getBirthPlace()),
+                () -> assertNull(mappingTarget.getIssuedBy()),
+                () -> assertNull(mappingTarget.getDateOfIssue()),
+                () -> assertNull(mappingTarget.getDivisionCode()),
+                () -> assertNull(mappingTarget.getExpirationDate()),
+                () -> assertNull(mappingTarget.getRegistration())
+        );
     }
-    // TODO удаляй ненужные комментарии
-// ---------------------------------------------------------------------------------------------------
+
     @Test
-    public void testRegistrationDtoToRegistrationEntity() {
+    @DisplayName("для Registration тестируем преобразование Dto в Entity")
+    public void toEntityRegistrationTest() {
         RegistrationDto registrationDto = new RegistrationDto();
         registrationDto.setId(1L);
         registrationDto.setCountry("Country");
@@ -208,22 +220,24 @@ public class AccountDetailsIdMapperTest {
 
         RegistrationEntity registrationEntity = mapperImpl.registrationDtoToRegistrationEntity(registrationDto);
 
-        // TODO можно объединить в AssertAll, чтобы видеть какие ассерты падают и какие отрабатывают
-        assertEquals(registrationDto.getId(), registrationEntity.getId());
-        assertEquals(registrationDto.getCountry(), registrationEntity.getCountry());
-        assertEquals(registrationDto.getRegion(), registrationEntity.getRegion());
-        assertEquals(registrationDto.getCity(), registrationEntity.getCity());
-        assertEquals(registrationDto.getDistrict(), registrationEntity.getDistrict());
-        assertEquals(registrationDto.getLocality(), registrationEntity.getLocality());
-        assertEquals(registrationDto.getStreet(), registrationEntity.getStreet());
-        assertEquals(registrationDto.getHouseNumber(), registrationEntity.getHouseNumber());
-        assertEquals(registrationDto.getHouseBlock(), registrationEntity.getHouseBlock());
-        assertEquals(registrationDto.getFlatNumber(), registrationEntity.getFlatNumber());
-        assertEquals(registrationDto.getIndex(), registrationEntity.getIndex());
+        assertAll(
+                () -> assertEquals(registrationDto.getId(), registrationEntity.getId()),
+                () -> assertEquals(registrationDto.getCountry(), registrationEntity.getCountry()),
+                () -> assertEquals(registrationDto.getRegion(), registrationEntity.getRegion()),
+                () -> assertEquals(registrationDto.getCity(), registrationEntity.getCity()),
+                () -> assertEquals(registrationDto.getDistrict(), registrationEntity.getDistrict()),
+                () -> assertEquals(registrationDto.getLocality(), registrationEntity.getLocality()),
+                () -> assertEquals(registrationDto.getStreet(), registrationEntity.getStreet()),
+                () -> assertEquals(registrationDto.getHouseNumber(), registrationEntity.getHouseNumber()),
+                () -> assertEquals(registrationDto.getHouseBlock(), registrationEntity.getHouseBlock()),
+                () -> assertEquals(registrationDto.getFlatNumber(), registrationEntity.getFlatNumber()),
+                () -> assertEquals(registrationDto.getIndex(), registrationEntity.getIndex())
+        );
     }
 
     @Test
-    public void testPassportDtoToPassportEntity() {
+    @DisplayName("для Passport тестируем преобразование Dto в Entity")
+    public void toEntityPassportTest() {
         PassportDto passportDto = new PassportDto();
         passportDto.setId(1L);
         passportDto.setSeries(123);
@@ -241,24 +255,26 @@ public class AccountDetailsIdMapperTest {
 
         PassportEntity passportEntity = mapperImpl.passportDtoToPassportEntity(passportDto);
 
-        // TODO можно объединить в AssertAll, чтобы видеть какие ассерты падают и какие отрабатывают
-        assertEquals(passportDto.getId(), passportEntity.getId());
-        assertEquals(passportDto.getSeries(), passportEntity.getSeries());
-        assertEquals(passportDto.getNumber(), passportEntity.getNumber());
-        assertEquals(passportDto.getLastName(), passportEntity.getLastName());
-        assertEquals(passportDto.getFirstName(), passportEntity.getFirstName());
-        assertEquals(passportDto.getMiddleName(), passportEntity.getMiddleName());
-        assertEquals(passportDto.getGender(), passportEntity.getGender());
-        assertEquals(passportDto.getBirthDate(), passportEntity.getBirthDate());
-        assertEquals(passportDto.getBirthPlace(), passportEntity.getBirthPlace());
-        assertEquals(passportDto.getIssuedBy(), passportEntity.getIssuedBy());
-        assertEquals(passportDto.getDateOfIssue(), passportEntity.getDateOfIssue());
-        assertEquals(passportDto.getDivisionCode(), passportEntity.getDivisionCode());
-        assertEquals(passportDto.getExpirationDate(), passportEntity.getExpirationDate());
+        assertAll(
+                () -> assertEquals(passportDto.getId(), passportEntity.getId()),
+                () -> assertEquals(passportDto.getSeries(), passportEntity.getSeries()),
+                () -> assertEquals(passportDto.getNumber(), passportEntity.getNumber()),
+                () -> assertEquals(passportDto.getLastName(), passportEntity.getLastName()),
+                () -> assertEquals(passportDto.getFirstName(), passportEntity.getFirstName()),
+                () -> assertEquals(passportDto.getMiddleName(), passportEntity.getMiddleName()),
+                () -> assertEquals(passportDto.getGender(), passportEntity.getGender()),
+                () -> assertEquals(passportDto.getBirthDate(), passportEntity.getBirthDate()),
+                () -> assertEquals(passportDto.getBirthPlace(), passportEntity.getBirthPlace()),
+                () -> assertEquals(passportDto.getIssuedBy(), passportEntity.getIssuedBy()),
+                () -> assertEquals(passportDto.getDateOfIssue(), passportEntity.getDateOfIssue()),
+                () -> assertEquals(passportDto.getDivisionCode(), passportEntity.getDivisionCode()),
+                () -> assertEquals(passportDto.getExpirationDate(), passportEntity.getExpirationDate())
+        );
     }
 
     @Test
-    public void testActualRegistrationDtoToActualRegistrationEntity() {
+    @DisplayName("для ActualRegistration тестируем преобразование Dto в Entity")
+    public void toEntityActualRegistrationTest() {
         ActualRegistrationDto actualRegistrationDto = new ActualRegistrationDto();
         actualRegistrationDto.setId(1L);
         actualRegistrationDto.setCountry("Country");
@@ -272,25 +288,27 @@ public class AccountDetailsIdMapperTest {
         actualRegistrationDto.setFlatNumber("456");
         actualRegistrationDto.setIndex(789L);
 
-        // TODO следи, чтобы код не выходил за стандартный размер экрана
-        ActualRegistrationEntity actualRegistrationEntity = mapperImpl.actualRegistrationDtoToActualRegistrationEntity(actualRegistrationDto);
+        ActualRegistrationEntity actualRegistrationEntity =
+                mapperImpl.actualRegistrationDtoToActualRegistrationEntity(actualRegistrationDto);
 
-        // TODO можно объединить в AssertAll, чтобы видеть какие ассерты падают и какие отрабатывают
-        assertEquals(actualRegistrationDto.getId(), actualRegistrationEntity.getId());
-        assertEquals(actualRegistrationDto.getCountry(), actualRegistrationEntity.getCountry());
-        assertEquals(actualRegistrationDto.getRegion(), actualRegistrationEntity.getRegion());
-        assertEquals(actualRegistrationDto.getCity(), actualRegistrationEntity.getCity());
-        assertEquals(actualRegistrationDto.getDistrict(), actualRegistrationEntity.getDistrict());
-        assertEquals(actualRegistrationDto.getLocality(), actualRegistrationEntity.getLocality());
-        assertEquals(actualRegistrationDto.getStreet(), actualRegistrationEntity.getStreet());
-        assertEquals(actualRegistrationDto.getHouseNumber(), actualRegistrationEntity.getHouseNumber());
-        assertEquals(actualRegistrationDto.getHouseBlock(), actualRegistrationEntity.getHouseBlock());
-        assertEquals(actualRegistrationDto.getFlatNumber(), actualRegistrationEntity.getFlatNumber());
-        assertEquals(actualRegistrationDto.getIndex(), actualRegistrationEntity.getIndex());
+        assertAll(
+                () -> assertEquals(actualRegistrationDto.getId(), actualRegistrationEntity.getId()),
+                () -> assertEquals(actualRegistrationDto.getCountry(), actualRegistrationEntity.getCountry()),
+                () -> assertEquals(actualRegistrationDto.getRegion(), actualRegistrationEntity.getRegion()),
+                () -> assertEquals(actualRegistrationDto.getCity(), actualRegistrationEntity.getCity()),
+                () -> assertEquals(actualRegistrationDto.getDistrict(), actualRegistrationEntity.getDistrict()),
+                () -> assertEquals(actualRegistrationDto.getLocality(), actualRegistrationEntity.getLocality()),
+                () -> assertEquals(actualRegistrationDto.getStreet(), actualRegistrationEntity.getStreet()),
+                () -> assertEquals(actualRegistrationDto.getHouseNumber(), actualRegistrationEntity.getHouseNumber()),
+                () -> assertEquals(actualRegistrationDto.getHouseBlock(), actualRegistrationEntity.getHouseBlock()),
+                () -> assertEquals(actualRegistrationDto.getFlatNumber(), actualRegistrationEntity.getFlatNumber()),
+                () -> assertEquals(actualRegistrationDto.getIndex(), actualRegistrationEntity.getIndex())
+        );
     }
 
     @Test
-    public void testProfileDtoToProfileEntity() {
+    @DisplayName("для Profile тестируем преобразование Dto в Entity")
+    public void toEntityProfileTest() {
         ProfileDto profileDto = new ProfileDto();
         profileDto.setId(1L);
         profileDto.setPhoneNumber(1234567890L);
@@ -301,17 +319,19 @@ public class AccountDetailsIdMapperTest {
 
         ProfileEntity profileEntity = mapperImpl.profileDtoToProfileEntity(profileDto);
 
-        // TODO можно объединить в AssertAll, чтобы видеть какие ассерты падают и какие отрабатывают
-        assertEquals(profileDto.getId(), profileEntity.getId());
-        assertEquals(profileDto.getPhoneNumber(), profileEntity.getPhoneNumber());
-        assertEquals(profileDto.getEmail(), profileEntity.getEmail());
-        assertEquals(profileDto.getNameOnCard(), profileEntity.getNameOnCard());
-        assertEquals(profileDto.getInn(), profileEntity.getInn());
-        assertEquals(profileDto.getSnils(), profileEntity.getSnils());
+        assertAll(
+                () -> assertEquals(profileDto.getId(), profileEntity.getId()),
+                () -> assertEquals(profileDto.getPhoneNumber(), profileEntity.getPhoneNumber()),
+                () -> assertEquals(profileDto.getEmail(), profileEntity.getEmail()),
+                () -> assertEquals(profileDto.getNameOnCard(), profileEntity.getNameOnCard()),
+                () -> assertEquals(profileDto.getInn(), profileEntity.getInn()),
+                () -> assertEquals(profileDto.getSnils(), profileEntity.getSnils())
+        );
     }
 
     @Test
-    public void testRegistrationEntityToRegistrationDto() {
+    @DisplayName("для Registration тестируем преобразование Entity в Dto")
+    public void toDtoRegistrationTest() {
         RegistrationEntity registrationEntity = new RegistrationEntity();
         registrationEntity.setId(1L);
         registrationEntity.setCountry("Country");
@@ -327,23 +347,24 @@ public class AccountDetailsIdMapperTest {
 
         RegistrationDto registrationDto = mapperImpl.registrationEntityToRegistrationDto(registrationEntity);
 
-        // TODO можно объединить в AssertAll, чтобы видеть какие ассерты падают и какие отрабатывают
-        assertEquals(registrationEntity.getId(), registrationDto.getId());
-        assertEquals(registrationEntity.getCountry(), registrationDto.getCountry());
-        assertEquals(registrationEntity.getRegion(), registrationDto.getRegion());
-        assertEquals(registrationEntity.getCity(), registrationDto.getCity());
-        assertEquals(registrationEntity.getDistrict(), registrationDto.getDistrict());
-        assertEquals(registrationEntity.getLocality(), registrationDto.getLocality());
-        assertEquals(registrationEntity.getStreet(), registrationDto.getStreet());
-        assertEquals(registrationEntity.getHouseNumber(), registrationDto.getHouseNumber());
-        assertEquals(registrationEntity.getHouseBlock(), registrationDto.getHouseBlock());
-        assertEquals(registrationEntity.getFlatNumber(), registrationDto.getFlatNumber());
-        assertEquals(registrationEntity.getIndex(), registrationDto.getIndex());
+        assertAll(
+                () -> assertEquals(registrationEntity.getId(), registrationDto.getId()),
+                () -> assertEquals(registrationEntity.getCountry(), registrationDto.getCountry()),
+                () -> assertEquals(registrationEntity.getRegion(), registrationDto.getRegion()),
+                () -> assertEquals(registrationEntity.getCity(), registrationDto.getCity()),
+                () -> assertEquals(registrationEntity.getDistrict(), registrationDto.getDistrict()),
+                () -> assertEquals(registrationEntity.getLocality(), registrationDto.getLocality()),
+                () -> assertEquals(registrationEntity.getStreet(), registrationDto.getStreet()),
+                () -> assertEquals(registrationEntity.getHouseNumber(), registrationDto.getHouseNumber()),
+                () -> assertEquals(registrationEntity.getHouseBlock(), registrationDto.getHouseBlock()),
+                () -> assertEquals(registrationEntity.getFlatNumber(), registrationDto.getFlatNumber()),
+                () -> assertEquals(registrationEntity.getIndex(), registrationDto.getIndex())
+        );
     }
 
     @Test
-    public void testPassportEntityToPassportDto() {
-
+    @DisplayName("для Passport тестируем преобразование Entity в Dto")
+    public void toDtoPassportTest() {
         PassportEntity passportEntity = new PassportEntity();
         passportEntity.setId(1L);
         passportEntity.setSeries(123);
@@ -361,24 +382,26 @@ public class AccountDetailsIdMapperTest {
 
         PassportDto passportDto = mapperImpl.passportEntityToPassportDto(passportEntity);
 
-        // TODO можно объединить в AssertAll, чтобы видеть какие ассерты падают и какие отрабатывают
-        assertEquals(passportEntity.getId(), passportDto.getId());
-        assertEquals(passportEntity.getSeries(), passportDto.getSeries());
-        assertEquals(passportEntity.getNumber(), passportDto.getNumber());
-        assertEquals(passportEntity.getLastName(), passportDto.getLastName());
-        assertEquals(passportEntity.getFirstName(), passportDto.getFirstName());
-        assertEquals(passportEntity.getMiddleName(), passportDto.getMiddleName());
-        assertEquals(passportEntity.getGender(), passportDto.getGender());
-        assertEquals(passportEntity.getBirthDate(), passportDto.getBirthDate());
-        assertEquals(passportEntity.getBirthPlace(), passportDto.getBirthPlace());
-        assertEquals(passportEntity.getIssuedBy(), passportDto.getIssuedBy());
-        assertEquals(passportEntity.getDateOfIssue(), passportDto.getDateOfIssue());
-        assertEquals(passportEntity.getDivisionCode(), passportDto.getDivisionCode());
-        assertEquals(passportEntity.getExpirationDate(), passportDto.getExpirationDate());
+        assertAll(
+                () -> assertEquals(passportEntity.getId(), passportDto.getId()),
+                () -> assertEquals(passportEntity.getSeries(), passportDto.getSeries()),
+                () -> assertEquals(passportEntity.getNumber(), passportDto.getNumber()),
+                () -> assertEquals(passportEntity.getLastName(), passportDto.getLastName()),
+                () -> assertEquals(passportEntity.getFirstName(), passportDto.getFirstName()),
+                () -> assertEquals(passportEntity.getMiddleName(), passportDto.getMiddleName()),
+                () -> assertEquals(passportEntity.getGender(), passportDto.getGender()),
+                () -> assertEquals(passportEntity.getBirthDate(), passportDto.getBirthDate()),
+                () -> assertEquals(passportEntity.getBirthPlace(), passportDto.getBirthPlace()),
+                () -> assertEquals(passportEntity.getIssuedBy(), passportDto.getIssuedBy()),
+                () -> assertEquals(passportEntity.getDateOfIssue(), passportDto.getDateOfIssue()),
+                () -> assertEquals(passportEntity.getDivisionCode(), passportDto.getDivisionCode()),
+                () -> assertEquals(passportEntity.getExpirationDate(), passportDto.getExpirationDate())
+        );
     }
 
     @Test
-    public void testActualRegistrationEntityToActualRegistrationDto() {
+    @DisplayName("для ActualRegistration тестируем преобразование Entity в Dto")
+    public void toDtoActualRegistrationTest() {
         ActualRegistrationEntity entity = new ActualRegistrationEntity();
         entity.setId(1L);
         entity.setCountry("Country");
@@ -394,23 +417,25 @@ public class AccountDetailsIdMapperTest {
 
         ActualRegistrationDto dto = mapperImpl.actualRegistrationEntityToActualRegistrationDto(entity);
 
-        // TODO можно объединить в AssertAll, чтобы видеть какие ассерты падают и какие отрабатывают
-        assertNotNull(dto);
-        assertEquals(entity.getId(), dto.getId());
-        assertEquals(entity.getCountry(), dto.getCountry());
-        assertEquals(entity.getRegion(), dto.getRegion());
-        assertEquals(entity.getCity(), dto.getCity());
-        assertEquals(entity.getDistrict(), dto.getDistrict());
-        assertEquals(entity.getLocality(), dto.getLocality());
-        assertEquals(entity.getStreet(), dto.getStreet());
-        assertEquals(entity.getHouseNumber(), dto.getHouseNumber());
-        assertEquals(entity.getHouseBlock(), dto.getHouseBlock());
-        assertEquals(entity.getFlatNumber(), dto.getFlatNumber());
-        assertEquals(entity.getIndex(), dto.getIndex());
+        assertAll(
+                () -> assertNotNull(dto),
+                () -> assertEquals(entity.getId(), dto.getId()),
+                () -> assertEquals(entity.getCountry(), dto.getCountry()),
+                () -> assertEquals(entity.getRegion(), dto.getRegion()),
+                () -> assertEquals(entity.getCity(), dto.getCity()),
+                () -> assertEquals(entity.getDistrict(), dto.getDistrict()),
+                () -> assertEquals(entity.getLocality(), dto.getLocality()),
+                () -> assertEquals(entity.getStreet(), dto.getStreet()),
+                () -> assertEquals(entity.getHouseNumber(), dto.getHouseNumber()),
+                () -> assertEquals(entity.getHouseBlock(), dto.getHouseBlock()),
+                () -> assertEquals(entity.getFlatNumber(), dto.getFlatNumber()),
+                () -> assertEquals(entity.getIndex(), dto.getIndex())
+        );
     }
 
     @Test
-    public void testProfileEntityToProfileDto() {
+    @DisplayName("для Profile тестируем преобразование Entity в Dto")
+    public void toDtoProfileTest() {
         ProfileEntity entity = new ProfileEntity();
         entity.setId(1L);
         entity.setPhoneNumber(123456789L);
@@ -421,18 +446,20 @@ public class AccountDetailsIdMapperTest {
 
         ProfileDto dto = mapperImpl.profileEntityToProfileDto(entity);
 
-        // TODO можно объединить в AssertAll, чтобы видеть какие ассерты падают и какие отрабатывают
-        assertNotNull(dto);
-        assertEquals(entity.getId(), dto.getId());
-        assertEquals(entity.getPhoneNumber(), dto.getPhoneNumber());
-        assertEquals(entity.getEmail(), dto.getEmail());
-        assertEquals(entity.getNameOnCard(), dto.getNameOnCard());
-        assertEquals(entity.getInn(), dto.getInn());
-        assertEquals(entity.getSnils(), dto.getSnils());
+        assertAll(
+                () -> assertNotNull(dto),
+                () -> assertEquals(entity.getId(), dto.getId()),
+                () -> assertEquals(entity.getPhoneNumber(), dto.getPhoneNumber()),
+                () -> assertEquals(entity.getEmail(), dto.getEmail()),
+                () -> assertEquals(entity.getNameOnCard(), dto.getNameOnCard()),
+                () -> assertEquals(entity.getInn(), dto.getInn()),
+                () -> assertEquals(entity.getSnils(), dto.getSnils())
+        );
     }
 
     @Test
-    public void testRegistrationDtoToRegistrationEntity1() {
+    @DisplayName("для Registration тестируем преобразование Dto в Entity")
+    public void toEntityRegistrationTest2() {
         RegistrationDto dto = new RegistrationDto();
         dto.setId(1L);
         dto.setCountry("Country");
@@ -449,22 +476,24 @@ public class AccountDetailsIdMapperTest {
         RegistrationEntity mappingTarget = new RegistrationEntity();
         mapperImpl.registrationDtoToRegistrationEntity1(dto, mappingTarget);
 
-        // TODO можно объединить в AssertAll, чтобы видеть какие ассерты падают и какие отрабатывают
-        assertEquals(dto.getId(), mappingTarget.getId());
-        assertEquals(dto.getCountry(), mappingTarget.getCountry());
-        assertEquals(dto.getRegion(), mappingTarget.getRegion());
-        assertEquals(dto.getCity(), mappingTarget.getCity());
-        assertEquals(dto.getDistrict(), mappingTarget.getDistrict());
-        assertEquals(dto.getLocality(), mappingTarget.getLocality());
-        assertEquals(dto.getStreet(), mappingTarget.getStreet());
-        assertEquals(dto.getHouseNumber(), mappingTarget.getHouseNumber());
-        assertEquals(dto.getHouseBlock(), mappingTarget.getHouseBlock());
-        assertEquals(dto.getFlatNumber(), mappingTarget.getFlatNumber());
-        assertEquals(dto.getIndex(), mappingTarget.getIndex());
+        assertAll(
+                () -> assertEquals(dto.getId(), mappingTarget.getId()),
+                () -> assertEquals(dto.getCountry(), mappingTarget.getCountry()),
+                () -> assertEquals(dto.getRegion(), mappingTarget.getRegion()),
+                () -> assertEquals(dto.getCity(), mappingTarget.getCity()),
+                () -> assertEquals(dto.getDistrict(), mappingTarget.getDistrict()),
+                () -> assertEquals(dto.getLocality(), mappingTarget.getLocality()),
+                () -> assertEquals(dto.getStreet(), mappingTarget.getStreet()),
+                () -> assertEquals(dto.getHouseNumber(), mappingTarget.getHouseNumber()),
+                () -> assertEquals(dto.getHouseBlock(), mappingTarget.getHouseBlock()),
+                () -> assertEquals(dto.getFlatNumber(), mappingTarget.getFlatNumber()),
+                () -> assertEquals(dto.getIndex(), mappingTarget.getIndex())
+        );
     }
 
     @Test
-    public void testPassportDtoToPassportEntity1() {
+    @DisplayName("для Passport тестируем преобразование Dto в Entity")
+    public void toEntityPassportTest2() {
         PassportDto dto = new PassportDto();
         dto.setId(1L);
         dto.setSeries(123);
@@ -487,21 +516,22 @@ public class AccountDetailsIdMapperTest {
         PassportEntity mappingTarget = new PassportEntity();
         mapperImpl.passportDtoToPassportEntity1(dto, mappingTarget);
 
-        // TODO можно объединить в AssertAll, чтобы видеть какие ассерты падают и какие отрабатывают
-        assertEquals(dto.getId(), mappingTarget.getId());
-        assertEquals(dto.getSeries(), mappingTarget.getSeries());
-        assertEquals(dto.getNumber(), mappingTarget.getNumber());
-        assertEquals(dto.getLastName(), mappingTarget.getLastName());
-        assertEquals(dto.getFirstName(), mappingTarget.getFirstName());
-        assertEquals(dto.getMiddleName(), mappingTarget.getMiddleName());
-        assertEquals(dto.getGender(), mappingTarget.getGender());
-        assertEquals(dto.getBirthDate(), mappingTarget.getBirthDate());
-        assertEquals(dto.getBirthPlace(), mappingTarget.getBirthPlace());
-        assertEquals(dto.getIssuedBy(), mappingTarget.getIssuedBy());
-        assertEquals(dto.getDateOfIssue(), mappingTarget.getDateOfIssue());
-        assertEquals(dto.getDivisionCode(), mappingTarget.getDivisionCode());
-        assertEquals(dto.getExpirationDate(), mappingTarget.getExpirationDate());
-        assertNotNull(mappingTarget.getRegistration());
-        assertEquals(registrationDto.getId(), mappingTarget.getRegistration().getId());
+        assertAll(
+                () -> assertEquals(dto.getId(), mappingTarget.getId()),
+                () -> assertEquals(dto.getSeries(), mappingTarget.getSeries()),
+                () -> assertEquals(dto.getNumber(), mappingTarget.getNumber()),
+                () -> assertEquals(dto.getLastName(), mappingTarget.getLastName()),
+                () -> assertEquals(dto.getFirstName(), mappingTarget.getFirstName()),
+                () -> assertEquals(dto.getMiddleName(), mappingTarget.getMiddleName()),
+                () -> assertEquals(dto.getGender(), mappingTarget.getGender()),
+                () -> assertEquals(dto.getBirthDate(), mappingTarget.getBirthDate()),
+                () -> assertEquals(dto.getBirthPlace(), mappingTarget.getBirthPlace()),
+                () -> assertEquals(dto.getIssuedBy(), mappingTarget.getIssuedBy()),
+                () -> assertEquals(dto.getDateOfIssue(), mappingTarget.getDateOfIssue()),
+                () -> assertEquals(dto.getDivisionCode(), mappingTarget.getDivisionCode()),
+                () -> assertEquals(dto.getExpirationDate(), mappingTarget.getExpirationDate()),
+                () -> assertNotNull(mappingTarget.getRegistration()),
+                () -> assertEquals(registrationDto.getId(), mappingTarget.getRegistration().getId())
+        );
     }
 }
